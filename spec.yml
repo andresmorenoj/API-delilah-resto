@@ -4,19 +4,19 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0
 info:
-  description: This is a simple API
+  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usario administrador pueda ejecutar el CRUD completo de la API.
   version: "1.0.0"
   title: API Delilah Resto by Andres Moreno
   contact:
-    email: you@your-company.com
+    email: andresmorenojf@gmail.com
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
+  - name: usuarios
+    description: Endpoints para el CRUD de usuarios.
+  - name: administrador
+    description: Endpoints para el CRUD de administrador.
 paths:
   /inventory:
     get:
