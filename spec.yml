@@ -81,27 +81,37 @@ paths:
         description: Inventory item to add
 components:
   schemas:
-    InventoryItem:
+    Usuario:
       type: object
       required:
-        - id
-        - name
-        - manufacturer
-        - releaseDate
+        - idUsuario
+        - usuario
+        - nombreApellido
+        - correo
+        - telefono
+        - contrasenia
       properties:
-        id:
-          type: string
+        idUsuario:
+          type: integer
           format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
+          example: 1
+        usuario:
           type: string
-          example: Widget Adapter
-        releaseDate:
+          example: "andresmorenojf"
+        nombreApellido:
           type: string
-          format: date-time
-          example: "2016-08-29T09:12:33.001Z"
-        manufacturer:
-          $ref: "#/components/schemas/Manufacturer"
+          example: "Andres Moreno"
+        correo:
+          type: string
+          format: email
+          example: "andresmorenojf@gmail.com"
+        telefono:
+          type: string
+          example: "+57 4 572 65 98"
+        contrasenia:
+          type: string
+          example: "abc456def123"
+
     Manufacturer:
       required:
         - name
