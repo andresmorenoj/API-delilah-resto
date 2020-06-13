@@ -191,3 +191,21 @@ components:
           type: string
           format: date-time
           example: "2017-07-21T17:32:28Z"
+
+    Pago:
+      type: object
+      required:
+        - idPago
+        - efectivo
+        - tarjeta
+      properties:
+        idPago:
+          type: integer
+          format: uuid
+          example: 1
+        efectivo:
+          type: boolean
+          example: false
+        tarjeta:
+          type: boolean
+          example: true
