@@ -152,3 +152,42 @@ components:
         direccion:
           type: string
           example: "Calle 45 #50 N, barrio la palmas, Medellín"
+
+    Estados:
+      type: object
+      required:
+        - idEstado
+        - nuevo
+        - confirmado
+        - preparacion
+        - enviando
+        - entregado
+        - cancelado
+        - fechaModificacion
+      properties:
+        idEstado:
+          type: integer
+          format: uuid
+          example: 1
+        nuevo:
+          type: boolean
+          example: true
+        confirmado:
+          type: boolean
+          example: false
+        preparacion:
+          type: boolean
+          example: false
+        enviando:
+          type: boolean
+          example: false
+        entregado:
+          type: boolean
+          example: false
+        cancelado:
+          type: boolean
+          example: false
+        fechaModificacion:
+          type: string
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
