@@ -4,19 +4,19 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0
 info:
-  description: This is a simple API
+  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
   version: "1.0.0"
   title: API Delilah Resto by Andres Moreno
   contact:
-    email: you@your-company.com
+    email: andresmorenojf@gmail.com
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: admins
-    description: Secured Admin-only calls
-  - name: developers
-    description: Operations available to regular developers
+  - name: usuarios
+    description: Endpoints para el CRUD de usuarios.
+  - name: administrador
+    description: Endpoints para el CRUD de administrador.
 paths:
   /inventory:
     get:
@@ -81,39 +81,131 @@ paths:
         description: Inventory item to add
 components:
   schemas:
-    InventoryItem:
+    Usuario:
       type: object
       required:
-        - id
-        - name
-        - manufacturer
-        - releaseDate
+        - idUsuario
+        - usuario
+        - nombreApellido
+        - correo
+        - telefono
+        - contrasenia
       properties:
-        id:
-          type: string
+        idUsuario:
+          type: integer
           format: uuid
-          example: d290f1ee-6c54-4b01-90e6-d701748f0851
-        name:
+          example: 1
+        usuario:
           type: string
-          example: Widget Adapter
-        releaseDate:
+          example: "andresmorenojf"
+        nombreApellido:
           type: string
-          format: date-time
-          example: "2016-08-29T09:12:33.001Z"
-        manufacturer:
-          $ref: "#/components/schemas/Manufacturer"
-    Manufacturer:
+          example: "Andres Moreno"
+        correo:
+          type: string
+          format: email
+          example: "andresmorenojf@gmail.com"
+        telefono:
+          type: string
+          example: "+57 4 572 65 98"
+        contrasenia:
+          type: string
+          example: "abc456def123"
+
+    Plato:
+      type: object
       required:
-        - name
+        - idPlato
+        - nombreLargo
+        - nombreCorto
+        - foto
+        - precio
       properties:
-        name:
+        idPlato:
+          type: integer
+          format: uuid
+          example: 1
+        nombreLargo:
           type: string
-          example: ACME Corporation
-        homePage:
+          example: "Perro caliente con ensalada"
+        nombreCorto:
+          type: string
+          example: "Per Ca Ens"
+        foto:
           type: string
           format: url
-          example: "https://www.acme-corp.com"
-        phone:
-          type: string
-          example: 408-867-5309
+          example: "delilah-resto.com/plato/per-ca-ens"
+        precio:
+          type: integer
+          example: 7000
+
+    Direcciones:
       type: object
+      required:
+        - idDireccion
+        - direccion
+      properties:
+        idDireccion:
+          type: integer
+          format: uuid
+          example: 1
+        direccion:
+          type: string
+          example: "Calle 45 #50 N, barrio la palmas, Medellín"
+
+    Estados:
+      type: object
+      required:
+        - idEstado
+        - nuevo
+        - confirmado
+        - preparacion
+        - enviando
+        - entregado
+        - cancelado
+        - fechaModificacion
+      properties:
+        idEstado:
+          type: integer
+          format: uuid
+          example: 1
+        nuevo:
+          type: boolean
+          example: true
+        confirmado:
+          type: boolean
+          example: false
+        preparacion:
+          type: boolean
+          example: false
+        enviando:
+          type: boolean
+          example: false
+        entregado:
+          type: boolean
+          example: false
+        cancelado:
+          type: boolean
+          example: false
+        fechaModificacion:
+          type: string
+          format: date-time
+          example: "2017-07-21T17:32:28Z"
+
+    Pago:
+      type: object
+      required:
+        - idPago
+        - efectivo
+        - tarjeta
+      properties:
+        idPago:
+          type: integer
+          format: uuid
+          example: 1
+        efectivo:
+          type: boolean
+          example: false
+        tarjeta:
+          type: boolean
+          example: true
