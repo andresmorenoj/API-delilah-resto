@@ -138,3 +138,17 @@ components:
         precio:
           type: integer
           example: 7000
+
+    Direcciones:
+      type: object
+      required:
+        - idDireccion
+        - direccion
+      properties:
+        idDireccion:
+          type: integer
+          format: uuid
+          example: 1
+        direccion:
+          type: string
+          example: "Calle 45 #50 N, barrio la palmas, Medellín"
