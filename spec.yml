@@ -112,18 +112,29 @@ components:
           type: string
           example: "abc456def123"
 
-    Manufacturer:
+    Plato:
+      type: object
       required:
-        - name
+        - idPlato
+        - nombreLargo
+        - nombreCorto
+        - foto
+        - precio
       properties:
-        name:
+        idPlato:
+          type: integer
+          format: uuid
+          example: 1
+        nombreLargo:
           type: string
-          example: ACME Corporation
-        homePage:
+          example: "Perro caliente con ensalada"
+        nombreCorto:
+          type: string
+          example: "Per Ca Ens"
+        foto:
           type: string
           format: url
-          example: "https://www.acme-corp.com"
-        phone:
-          type: string
-          example: 408-867-5309
-      type: object
+          example: "delilah-resto.com/plato/per-ca-ens"
+        precio:
+          type: integer
+          example: 7000
