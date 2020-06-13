@@ -4,7 +4,7 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0
 info:
-  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usario administrador pueda ejecutar el CRUD completo de la API.
+  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
   version: "1.0.0"
   title: API Delilah Resto by Andres Moreno
   contact:
