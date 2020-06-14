@@ -18,76 +18,155 @@ tags:
   - name: administrador
     description: Endpoints para el CRUD de administrador.
 paths:
-  paths:
-    /registro:
-      post:
-        tags:
-          - "usuarios"
-        summary: Crear un nuevo usuario.
-        requestBody:
-          description: Todos los compos son *requeridos*
-          required: true
+  /registro:
+    post:
+      tags:
+        - "usuarios"
+      summary: Crear un nuevo usuario.
+      requestBody:
+        description: Todos los compos son *requeridos*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+          application/xml:
+            schema:
+              $ref: "#/components/schemas/Usuario"
+      responses:
+        201:
+          description: Registro exitoso
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Usuario"
+                $ref: "#components/schemas/Usuario"
             application/xml:
               schema:
-                $ref: "#/components/schemas/Usuario"
-        responses:
-          201:
-            description: Registro exitoso
-            content:
-              application/json:
-                schema:
-                  $ref: "#components/schemas/Usuario"
-              application/xml:
-                schema:
-                  $ref: "#components/schemas/Usuario"
+                $ref: "#components/schemas/Usuario"
 
-          400:
-            description: Petición mal enviada
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    mensaje:
-                      type: string
-                      default: Petición mal enviada
-                      example: "Petición mal enviada"
-              application/xml:
-                schema:
-                  type: object
-                  properties:
-                    mensaje:
-                      type: string
-                      default: Petición mal enviada
-                      example: "Petición mal enviada"
+        400:
+          description: Petición mal enviada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Petición mal enviada
+                    example: "Petición mal enviada"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Petición mal enviada
+                    example: "Petición mal enviada"
 
-          409:
-            description: Usuario ya existe
-            content:
-              application/json:
-                schema:
-                  type: object
-                  properties:
-                    mensaje:
-                      type: string
-                      default: El usuario ya exisite
-                      example: "El usuario ya exisite"
-                    usuario:
-                      $ref: "#/components/schemas/Usuario/properties/usuario"
-                  application/json:
-                    schema:
-                      type: object
-                      properties:
-                        mensaje:
-                          type: string
-                          default: El usuario ya exisite
-                          example: "El usuario ya exisite"
-                        usuario:
-                          $ref: "#/components/schemas/Usuario/properties/usuario"
+        409:
+          description: Usuario ya existe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El usuario ya exisite
+                    example: "El usuario ya exisite"
+                  usuario:
+                    $ref: "#/components/schemas/Usuario/properties/usuario"
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      mensaje:
+                        type: string
+                        default: El usuario ya exisite
+                        example: "El usuario ya exisite"
+                      usuario:
+                        $ref: "#/components/schemas/Usuario/properties/usuario"
+
+  /platos/todos:
+    get:
+      tags:
+        - "usuarios"
+      summary: Listar todos los platos
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token generado cuando el usuario hace login.
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        200:
+          description: El Token corresponde al usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadición correcta.
+                    example: "Validadición correcta"
+                  platos:
+                    $ref: "#/components/schemas/Platos"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadición correcta.
+                    example: "Validadición correcta"
+                  platos:
+                    $ref: "#/components/schemas/Platos"
+
+        204:
+          description: No hay platos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: No hay platos
+                    example: "No hay platos disponibles para mostrar"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: No hay platos
+                    example: "No hay platos disponibles para mostrar"
+
+        400:
+          description: Usuario y/o contraseña incorrectos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado
+                    example: "accecos denegado - Intenta de nuevo"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado
+                    example: "accecos denegado - Intenta de nuevo"
 
 components:
   schemas:
@@ -148,6 +227,11 @@ components:
         precio:
           type: integer
           example: 7000
+
+    Platos:
+      type: array
+      items:
+        $ref: "#/components/schemas/Plato"
 
     Direcciones:
       type: object
