@@ -244,6 +244,214 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - Intenta de nuevo."
 
+  /pedido:
+    post:
+      tags:
+        - "Cliente"
+        summary: Realizar pedido
+        parameters:
+          - in: header
+            name: Token
+            description: Se debe enviar el Token de validadición del cliente.
+            required: true
+            schema:
+              type: array
+              items:
+                type: string
+        requestBody:
+          description: Todos los campos son *obligatorios*
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Pedido"
+            application/xml:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Pedido"
+
+      responses:
+        200:
+          description: El token corresponde al cliente y todos los campos requeridos fueron enviados correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadción correcta.
+                    example: "La validadción de l cliente y los comapos fue exitosa"
+                  pedido:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPedido:
+                          $ref: "#/components/schemas/Pedido/properties/idPedido"
+                        idCliente:
+                          $ref: "#/components/schemas/Pedido/properties/idCliente"
+                        nombreCliente:
+                          $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"
+                        direccionCliente:
+                          $ref: "#/components/schemas/Direcciones/properties/direccion"
+                        idEstado:
+                          $ref: "#/components/schemas/Pedido/properties/idEstado"
+                        estadoPedido:
+                          $ref: "#/components/schemas/Estados/properties/nuevo"
+                        idPago:
+                          $ref: "#/components/schemas/Pedido/properties/idPago"
+                        pagoCliente:
+                          $ref: "#/components/schemas/Pago/properties/tarjeta"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadción correcta.
+                    example: "La validadción de l cliente y los comapos fue exitosa"
+                  pedido:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPedido:
+                          $ref: "#/components/schemas/Pedido/properties/idPedido"
+                        idCliente:
+                          $ref: "#/components/schemas/Pedido/properties/idCliente"
+                        nombreCliente:
+                          $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"
+                        direccionCliente:
+                          $ref: "#/components/schemas/Direcciones/properties/direccion"
+                        idEstado:
+                          $ref: "#/components/schemas/Pedido/properties/idEstado"
+                        estadoPedido:
+                          $ref: "#/components/schemas/Estados/properties/nuevo"
+                        idPago:
+                          $ref: "#/components/schemas/Pedido/properties/idPago"
+                        pagoCliente:
+                          $ref: "#/components/schemas/Pago/properties/tarjeta"
+        204:
+          description: El o los platos no están disponibles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El o los platos no están disponibles.
+                    example: "El o los platos no están disponibles, vuelve a elegir."
+                  plato:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El o los platos no están disponibles.
+                    example: "El o los platos no están disponibles, vuelve a elegir."
+                  plato:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+        400:
+          description: El token no corresponde al cliente | No se seleccionó un método de pago.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Acceso denegado.
+                    example: "Accecos denegado - Intenta de nuevo."
+                  mensajePago:
+                    type: string
+                    default: No seleccionó ningún método de pago.
+                    example: "No seleccionó ningún método de pago - Intenta de nuevo."
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Acceso denegado.
+                    example: "Accecos denegado - Intenta de nuevo."
+                  mensajePago:
+                    type: string
+                    default: No seleccionó ningún método de pago.
+                    example: "No seleccionó ningún método de pago - Intenta de nuevo."
+        411:
+          description: El campo de dirección esta vacío.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El campo de dirección esta vacío.
+                    example: "El campo de dirección esta vacío. Por favor ingresa una dirección"
+                  direccion:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"              
+                        campoDireccion:
+                          type: string
+                          example: "No hay dirección para mostrar"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El campo de dirección esta vacío.
+                    example: "El campo de dirección esta vacío. Por favor ingresa una dirección"
+                  direccion:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"              
+                        campoDireccion:
+                          type: string
+                          example: "No hay dirección para mostrar"
+                
+
+
+
 components:
   schemas:
     Cliente:
@@ -256,7 +464,7 @@ components:
         - telefono
         - contrasenia
       properties:
-        idUsuario:
+        idCliente:
           type: integer
           format: uuid
           example: 1
@@ -379,3 +587,28 @@ components:
         tarjeta:
           type: boolean
           example: true
+
+    Pedido:
+      type: object
+      required:
+        - idPeido
+        - idUsuario
+        - idPlato
+        - idDireccion
+        - idEstado
+        - idPago
+      properties:
+        idPedido:
+          type: integer
+          format: uuid
+          example: 1
+        idCliente:
+          $ref: "#/components/schemas/Cliente/properties/idCliente"
+        idPlato:
+          $ref: "#/components/schemas/Plato/properties/idPlato"
+        idDireccion:
+          $ref: "#/components/schemas/Direcciones/properties/idDireccion"
+        idEstado:
+          $ref: "#/components/schemas/Estados/properties/idEstado"
+        idPago:
+          $ref: "#/components/schemas/Pago/properties/idPago"
