@@ -4,48 +4,48 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0
 info:
-  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
+  description: API RESTFULL para el proyecto final de Acámica. API Delilah Restó permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
   version: "1.0.0"
-  title: API Delilah Resto by Andres Moreno
+  title: API Delilah Restó by Andrés Moreno
   contact:
     email: andresmorenojf@gmail.com
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: usuarios
-    description: Endpoints para el CRUD de usuarios.
-  - name: administrador
+  - name: Cliente
+    description: Endpoints para el CRUD de los clientes.
+  - name: Administrador
     description: Endpoints para el CRUD de administrador.
 paths:
   /registro:
     post:
       tags:
-        - "usuarios"
-      summary: Crear un nuevo usuario.
+        - "Cliente"
+      summary: Crear un cliente nuevo.
       requestBody:
-        description: Todos los compos son *requeridos*
+        description: Todos los compos son *requeridos.*
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Usuario"
+              $ref: "#/components/schemas/Cliente"
           application/xml:
             schema:
-              $ref: "#/components/schemas/Usuario"
+              $ref: "#/components/schemas/Cliente"
       responses:
         201:
-          description: Registro exitoso
+          description: Registro exitoso.
           content:
             application/json:
               schema:
-                $ref: "#components/schemas/Usuario"
+                $ref: "#components/schemas/Cliente"
             application/xml:
               schema:
-                $ref: "#components/schemas/Usuario"
+                $ref: "#components/schemas/Cliente"
 
         400:
-          description: Petición mal enviada
+          description: Petición mal enviada.
           content:
             application/json:
               schema:
@@ -53,19 +53,19 @@ paths:
                 properties:
                   mensaje:
                     type: string
-                    default: Petición mal enviada
-                    example: "Petición mal enviada"
+                    default: Petición mal enviada.
+                    example: "Petición mal enviada."
             application/xml:
               schema:
                 type: object
                 properties:
                   mensaje:
                     type: string
-                    default: Petición mal enviada
-                    example: "Petición mal enviada"
+                    default: Petición mal enviada.
+                    example: "Petición mal enviada."
 
         409:
-          description: Usuario ya existe
+          description: Cliente ya existe.
           content:
             application/json:
               schema:
@@ -73,30 +73,30 @@ paths:
                 properties:
                   mensaje:
                     type: string
-                    default: El usuario ya exisite
-                    example: "El usuario ya exisite"
+                    default: El cliente ya exisite.
+                    example: "El cliente ya exisite."
                   usuario:
-                    $ref: "#/components/schemas/Usuario/properties/usuario"
-                application/json:
-                  schema:
-                    type: object
-                    properties:
-                      mensaje:
-                        type: string
-                        default: El usuario ya exisite
-                        example: "El usuario ya exisite"
-                      usuario:
-                        $ref: "#/components/schemas/Usuario/properties/usuario"
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El cliente ya exisite.
+                    example: "El cliente ya exisite."
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
 
   /platos/todos:
     get:
       tags:
-        - "usuarios"
-      summary: Listar todos los platos
+        - "Cliente"
+      summary: Listar todos los platos.
       parameters:
         - in: header
           name: Token
-          description: Se debe enviar el token generado cuando el usuario hace login.
+          description: Se debe enviar el token generado cuando el cliente hace login.
           required: true
           schema:
             type: array
@@ -105,7 +105,7 @@ paths:
 
       responses:
         200:
-          description: El Token corresponde al usuario.
+          description: El Token corresponde al cliente.
           content:
             application/json:
               schema:
@@ -114,7 +114,7 @@ paths:
                   mensaje:
                     type: string
                     default: Validadición correcta.
-                    example: "Validadición correcta"
+                    example: "Validadición correcta."
                   platos:
                     $ref: "#/components/schemas/Platos"
             application/xml:
@@ -124,7 +124,7 @@ paths:
                   mensaje:
                     type: string
                     default: Validadición correcta.
-                    example: "Validadición correcta"
+                    example: "Validadición correcta."
                   platos:
                     $ref: "#/components/schemas/Platos"
 
@@ -137,16 +137,16 @@ paths:
                 properties:
                   mensaje:
                     type: string
-                    default: No hay platos
-                    example: "No hay platos disponibles para mostrar"
+                    default: No hay platos.
+                    example: "No hay platos disponibles para mostrar."
             application/xml:
               schema:
                 type: object
                 properties:
                   mensaje:
                     type: string
-                    default: No hay platos
-                    example: "No hay platos disponibles para mostrar"
+                    default: No hay platos.
+                    example: "No hay platos disponibles para mostrar."
 
         400:
           description: Usuario y/o contraseña incorrectos.
@@ -157,23 +157,23 @@ paths:
                 properties:
                   mensaje:
                     type: string
-                    default: Acceso denegado
-                    example: "accecos denegado - Intenta de nuevo"
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
             application/xml:
               schema:
                 type: object
                 properties:
                   mensaje:
                     type: string
-                    default: Acceso denegado
-                    example: "accecos denegado - Intenta de nuevo"
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
 
 components:
   schemas:
-    Usuario:
+    Cliente:
       type: object
       required:
-        - idUsuario
+        - idCliente
         - usuario
         - nombreApellido
         - correo
