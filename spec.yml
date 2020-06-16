@@ -288,10 +288,12 @@ paths:
   /ver/informacion:
   
   /editar/informacion:
-    put:
+  
+  /eliminar/plato:
+    delete:
       tags:
         - "Cliente"
-        summary: Editiar información personal
+        summary: Eliminar información personal
       parameters:
         - in: header
           name: Token
@@ -301,42 +303,8 @@ paths:
             type: array
             items:
               type: string
-      requestBody:
-        description: Información del cliente que va a ser editada
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              $ref: "#/components/schemas/Cliente"
       
       responses:
-        200:
-          description: El token corresponde al cliente logueado.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Información editada con éxito.
-                    example: "La información se actualizó con éxito."
-                  idCliente:
-                    $ref: "#/components/schemas/Cliente/properties/idCliente"
-                  usuario:
-                    $ref: "#/components/schemas/Cliente/properties/usuario"
-                  nombreCompleto:
-                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
-                  correo:
-                    $ref: "#/components/schemas/Cliente/properties/correo"
-                  telefono:
-                    $ref: "#/components/schemas/Cliente/properties/telefono"
-                  direccion:
-                    $ref: "#/components/schemas/Cliente/properties/direccion"
-                  contrasenia:
-                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
-
         400:
           description: Acceso denegado.
           content:
@@ -347,10 +315,26 @@ paths:
                   mensaje:
                     type: string
                     default: Acceso denegado.
-                    example: "accecos denegado - Intenta de nuevo."
-
-        401:
-          description: La información no corresponde a la del cliente
+                    example: "accecos denegado - No eres administrador."
+  
+  /eliminar/pedido:
+    delete:
+      tags:
+        - "Cliente"
+        summary: Eliminar información personal
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        400:
+          description: Acceso denegado.
           content:
             application/json:
               schema:
@@ -358,36 +342,8 @@ paths:
                 properties:
                   mensaje:
                     type: string
-                    default: La información no corresponde a la de cliente.
-                    example: "No se puede editar la información porque no corresponde a la del cliente logueado"
-                  idCliente:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  usuario:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  nombreCompleto:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  correo:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  telefono:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  direccion:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                  contrasenia:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    default: Acceso denegado.
+                    example: "accecos denegado - No eres administrador."
 
             
 components:
