@@ -4,94 +4,606 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://virtserver.swaggerhub.com/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0
 info:
-  description: API RESTFULL para el proyecto final de Acamica. API Delilah Resto permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
+  description: API RESTFULL para el proyecto final de Acámica. API Delilah Restó permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.
   version: "1.0.0"
-  title: API Delilah Resto by Andres Moreno
+  title: API Delilah Restó by Andrés Moreno
   contact:
     email: andresmorenojf@gmail.com
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: usuarios
-    description: Endpoints para el CRUD de usuarios.
-  - name: administrador
+  - name: Cliente
+    description: Endpoints para el CRUD de los clientes.
+  - name: Administrador
     description: Endpoints para el CRUD de administrador.
 paths:
-  /inventory:
-    get:
-      tags:
-        - developers
-      summary: searches inventory
-      operationId: searchInventory
-      description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
-      parameters:
-        - in: query
-          name: searchString
-          description: pass an optional search string for looking up inventory
-          required: false
-          schema:
-            type: string
-        - in: query
-          name: skip
-          description: number of records to skip for pagination
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-        - in: query
-          name: limit
-          description: maximum number of records to return
-          schema:
-            type: integer
-            format: int32
-            minimum: 0
-            maximum: 50
-      responses:
-        "200":
-          description: search results matching criteria
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/InventoryItem"
-        "400":
-          description: bad input parameter
+  /registro:
     post:
       tags:
-        - admins
-      summary: adds an inventory item
-      operationId: addInventory
-      description: Adds an item to the system
-      responses:
-        "201":
-          description: item created
-        "400":
-          description: "invalid input, object invalid"
-        "409":
-          description: an existing item already exists
+        - "Cliente"
+      summary: Crear un cliente nuevo.
       requestBody:
+        description: Todos los compos son *requeridos.*
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/InventoryItem"
-        description: Inventory item to add
+              $ref: "#/components/schemas/Cliente"
+      responses:
+        201:
+          description: Registro exitoso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+
+        400:
+          description: Petición mal enviada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Petición mal enviada.
+                    example: "Petición mal enviada."
+
+        409:
+          description: Cliente ya existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El cliente ya exisite.
+                    example: "El cliente ya exisite."
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+
+  /login:
+    post:
+      tags:
+        - "Cliente"
+      summary: Login del cliente
+      requestBody:
+        description: Se debe enviar *usuario* y *contraseña*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  $ref: "#/components/schemas/Cliente/properties/usuario"
+                contrasenia:
+                  type: string
+                  $ref: "#/components/schemas/Cliente/properties/contrasenia"
+
+      responses:
+        200:
+          description: Usuario y contraña correctos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Token generado.
+                    example: "El login del usuaio fue correcto y se generó el Token."
+                  toke:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          
+        400:
+          description: Usuario y/o contraseña inválidos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Usuario y/o contraseña inválidos.
+                    example: "Usuario y/o contraseña inválidos, intenta de nuevo"
+
+  /platos/todos:
+    get:
+      tags:
+        - "Cliente"
+      summary: Listar todos los platos.
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token generado cuando el cliente hace login.
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        200:
+          description: El Token corresponde al cliente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadición correcta.
+                    example: "Validadición correcta."
+                  platos:
+                    $ref: "#/components/schemas/Platos"
+
+        204:
+          description: No hay platos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: No hay platos.
+                    example: "No hay platos disponibles para mostrar."
+
+        400:
+          description: Usuario y/o contraseña incorrectos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
+
+  /pedido:
+    post:
+      tags:
+        - "Cliente"
+        summary: Realizar pedido
+        parameters:
+          - in: header
+            name: Token
+            description: Se debe enviar el Token de validadición del cliente.
+            required: true
+            schema:
+              type: array
+              items:
+                type: string
+        requestBody:
+          description: Todos los campos son *obligatorios*
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: "#/components/schemas/Pedido"
+
+      responses:
+        200:
+          description: El token corresponde al cliente y todos los campos requeridos fueron enviados correctamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validadción correcta.
+                    example: "La validadción de l cliente y los comapos fue exitosa"
+                  pedido:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPedido:
+                          $ref: "#/components/schemas/Pedido/properties/idPedido"
+                        idCliente:
+                          $ref: "#/components/schemas/Pedido/properties/idCliente"
+                        nombreCliente:
+                          $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"
+                        direccionCliente:
+                          $ref: "#/components/schemas/Direcciones/properties/direccion"
+                        idEstado:
+                          $ref: "#/components/schemas/Pedido/properties/idEstado"
+                        estadoPedido:
+                          $ref: "#/components/schemas/Estados/properties/nuevo"
+                        idPago:
+                          $ref: "#/components/schemas/Pedido/properties/idPago"
+                        pagoCliente:
+                          $ref: "#/components/schemas/Pago/properties/tarjeta"
+        204:
+          description: El o los platos no están disponibles.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El o los platos no están disponibles.
+                    example: "El o los platos no están disponibles, vuelve a elegir."
+                  plato:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idPlato:
+                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
+                        nombrePlato:
+                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
+        400:
+          description: El token no corresponde al cliente | No se seleccionó un método de pago.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Acceso denegado.
+                    example: "Accecos denegado - Intenta de nuevo."
+                  mensajePago:
+                    type: string
+                    default: No seleccionó ningún método de pago.
+                    example: "No seleccionó ningún método de pago - Intenta de nuevo."
+        411:
+          description: El campo de dirección esta vacío.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El campo de dirección esta vacío.
+                    example: "El campo de dirección esta vacío. Por favor ingresa una dirección"
+                  direccion:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        idDireccion:
+                          $ref: "#/components/schemas/Pedido/properties/idDireccion"              
+                        campoDireccion:
+                          type: string
+                          example: "No hay dirección para mostrar"
+  
+  /ver/informacion:
+    get:
+      tags:
+        - "Cliente"
+      summary: Ver información personal
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        200:
+          description: El token corresponde al cliente logueado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idCliente:
+                    $ref: "#/components/schemas/Cliente/properties/idCliente"
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+                  nombreCompleto:
+                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                  correo:
+                    $ref: "#/components/schemas/Cliente/properties/correo"
+                  telefono:
+                    $ref: "#/components/schemas/Cliente/properties/telefono"
+                  direccion:
+                    $ref: "#/components/schemas/Cliente/properties/direccion"
+                  contrasenia:
+                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
+
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
+
+        401:
+          description: La información no corresponde a la del cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: La información no corresponde a la de cliente.
+                    example: "La información no corresponde a la del cliente logueado"
+                  idCliente:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  usuario:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  nombreCompleto:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  correo:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  telefono:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  direccion:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  contrasenia:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+
+  /editar/informacion:
+    put:
+      tags:
+        - "Cliente"
+      summary: Editiar información personal
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      requestBody:
+        description: Información del cliente que va a ser editada
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Cliente"
+      
+      responses:
+        200:
+          description: El token corresponde al cliente logueado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Información editada con éxito.
+                    example: "La información se actualizó con éxito."
+                  idCliente:
+                    $ref: "#/components/schemas/Cliente/properties/idCliente"
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+                  nombreCompleto:
+                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                  correo:
+                    $ref: "#/components/schemas/Cliente/properties/correo"
+                  telefono:
+                    $ref: "#/components/schemas/Cliente/properties/telefono"
+                  direccion:
+                    $ref: "#/components/schemas/Cliente/properties/direccion"
+                  contrasenia:
+                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
+
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
+
+        401:
+          description: La información no corresponde a la del cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: La información no corresponde a la de cliente.
+                    example: "No se puede editar la información porque no corresponde a la del cliente logueado"
+                  idCliente:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  usuario:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  nombreCompleto:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  correo:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  telefono:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  direccion:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                  contrasenia:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+
+  /editar/plato:
+    put:
+      tags:
+        - "Cliente"
+        summary: Editar plato
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - No eres administrador."
+
+  /editar/pedido:
+    put:
+      tags:
+        - "Cliente"
+        summary: Editar pedido
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+
+      responses:
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - No eres administrador."
+
+  /eliminar/plato:
+    delete:
+      tags:
+        - "Cliente"
+      summary: Eliminar plato
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - No eres administrador."
+
+  /eliminar/pedido:
+    delete:
+      tags:
+        - "Cliente"
+      summary: Eliminar pedido
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - No eres administrador."
+
+            
 components:
   schemas:
-    Usuario:
+    Cliente:
       type: object
       required:
-        - idUsuario
+        - idCliente
         - usuario
         - nombreApellido
         - correo
         - telefono
+        - direccion
         - contrasenia
       properties:
-        idUsuario:
+        idCliente:
           type: integer
           format: uuid
           example: 1
@@ -108,6 +620,8 @@ components:
         telefono:
           type: string
           example: "+57 4 572 65 98"
+        direccion:
+          $ref: "#/components/schemas/Direcciones/direccion"
         contrasenia:
           type: string
           example: "abc456def123"
@@ -138,6 +652,11 @@ components:
         precio:
           type: integer
           example: 7000
+
+    Platos:
+      type: array
+      items:
+        $ref: "#/components/schemas/Plato"
 
     Direcciones:
       type: object
@@ -209,3 +728,28 @@ components:
         tarjeta:
           type: boolean
           example: true
+
+    Pedido:
+      type: object
+      required:
+        - idPeido
+        - idUsuario
+        - idPlato
+        - idDireccion
+        - idEstado
+        - idPago
+      properties:
+        idPedido:
+          type: integer
+          format: uuid
+          example: 1
+        idCliente:
+          $ref: "#/components/schemas/Cliente/properties/idCliente"
+        idPlato:
+          $ref: "#/components/schemas/Plato/properties/idPlato"
+        idDireccion:
+          $ref: "#/components/schemas/Direcciones/properties/idDireccion"
+        idEstado:
+          $ref: "#/components/schemas/Estados/properties/idEstado"
+        idPago:
+          $ref: "#/components/schemas/Pago/properties/idPago"
