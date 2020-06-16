@@ -286,10 +286,12 @@ paths:
                           example: "No hay dirección para mostrar"
   
   /ver/informacion:
-    get:
+  
+  /editar/informacion:
+    put:
       tags:
         - "Cliente"
-        summary: Ver información personal
+        summary: Editiar información personal
       parameters:
         - in: header
           name: Token
@@ -299,6 +301,14 @@ paths:
             type: array
             items:
               type: string
+      requestBody:
+        description: Información del cliente que va a ser editada
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Cliente"
       
       responses:
         200:
@@ -308,6 +318,10 @@ paths:
               schema:
                 type: object
                 properties:
+                  mensaje:
+                    type: string
+                    default: Información editada con éxito.
+                    example: "La información se actualizó con éxito."
                   idCliente:
                     $ref: "#/components/schemas/Cliente/properties/idCliente"
                   usuario:
@@ -345,35 +359,35 @@ paths:
                   mensaje:
                     type: string
                     default: La información no corresponde a la de cliente.
-                    example: "La información no corresponde a la del cliente logueado"
+                    example: "No se puede editar la información porque no corresponde a la del cliente logueado"
                   idCliente:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   usuario:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   nombreCompleto:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   correo:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   telefono:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   direccion:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                   contrasenia:
                     type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
 
             
 components:
