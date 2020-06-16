@@ -537,7 +537,7 @@ paths:
     delete:
       tags:
         - "Cliente"
-      summary: Eliminar información personal
+      summary: Eliminar plato
       parameters:
         - in: header
           name: Token
@@ -565,7 +565,7 @@ paths:
     delete:
       tags:
         - "Cliente"
-      summary: Eliminar información personal
+      summary: Eliminar pedido
       parameters:
         - in: header
           name: Token
