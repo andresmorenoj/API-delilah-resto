@@ -30,17 +30,11 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/Cliente"
-          application/xml:
-            schema:
-              $ref: "#/components/schemas/Cliente"
       responses:
         201:
           description: Registro exitoso.
           content:
             application/json:
-              schema:
-                $ref: "#/components/schemas/Cliente"
-            application/xml:
               schema:
                 $ref: "#/components/schemas/Cliente"
 
@@ -55,29 +49,11 @@ paths:
                     type: string
                     default: Petición mal enviada.
                     example: "Petición mal enviada."
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Petición mal enviada.
-                    example: "Petición mal enviada."
 
         409:
           description: Cliente ya existe.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: El cliente ya exisite.
-                    example: "El cliente ya exisite."
-                  usuario:
-                    $ref: "#/components/schemas/Cliente/properties/usuario"
-            application/xml:
               schema:
                 type: object
                 properties:
@@ -107,16 +83,6 @@ paths:
                 contrasenia:
                   type: string
                   $ref: "#/components/schemas/Cliente/properties/contrasenia"
-          application/xml:
-            schema:
-              type: object
-              properties:
-                usuario:
-                  type: string
-                  $ref: "#/components/schemas/Cliente/properties/usuario"
-                contrasenia:
-                  type: string
-                  $ref: "#/components/schemas/Cliente/properties/contrasenia"
 
       responses:
         200:
@@ -133,29 +99,11 @@ paths:
                   toke:
                     type: string
                     example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Token generado.
-                    example: "El login del usuaio fue correcto y se generó el Token."
-                  toke:
-                    type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          
         400:
           description: Usuario y/o contraseña inválidos.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Usuario y/o contraseña inválidos.
-                    example: "Usuario y/o contraseña inválidos, intenta de nuevo"
-            application/xml:
               schema:
                 type: object
                 properties:
@@ -193,16 +141,6 @@ paths:
                     example: "Validadición correcta."
                   platos:
                     $ref: "#/components/schemas/Platos"
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Validadición correcta.
-                    example: "Validadición correcta."
-                  platos:
-                    $ref: "#/components/schemas/Platos"
 
         204:
           description: No hay platos.
@@ -215,27 +153,11 @@ paths:
                     type: string
                     default: No hay platos.
                     example: "No hay platos disponibles para mostrar."
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: No hay platos.
-                    example: "No hay platos disponibles para mostrar."
 
         400:
           description: Usuario y/o contraseña incorrectos.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Acceso denegado.
-                    example: "accecos denegado - Intenta de nuevo."
-            application/xml:
               schema:
                 type: object
                 properties:
@@ -263,10 +185,6 @@ paths:
           required: true
           content:
             application/json:
-              schema:
-                type: object
-                $ref: "#/components/schemas/Pedido"
-            application/xml:
               schema:
                 type: object
                 $ref: "#/components/schemas/Pedido"
@@ -310,62 +228,10 @@ paths:
                           $ref: "#/components/schemas/Pedido/properties/idPago"
                         pagoCliente:
                           $ref: "#/components/schemas/Pago/properties/tarjeta"
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Validadción correcta.
-                    example: "La validadción de l cliente y los comapos fue exitosa"
-                  pedido:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        idPedido:
-                          $ref: "#/components/schemas/Pedido/properties/idPedido"
-                        idCliente:
-                          $ref: "#/components/schemas/Pedido/properties/idCliente"
-                        nombreCliente:
-                          $ref: "#/components/schemas/Cliente/properties/nombreApellido"
-                        idPlato:
-                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
-                        nombrePlato:
-                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
-                        idDireccion:
-                          $ref: "#/components/schemas/Pedido/properties/idDireccion"
-                        direccionCliente:
-                          $ref: "#/components/schemas/Cliente/properties/direccion"
-                        idEstado:
-                          $ref: "#/components/schemas/Pedido/properties/idEstado"
-                        estadoPedido:
-                          $ref: "#/components/schemas/Estados/properties/nuevo"
-                        idPago:
-                          $ref: "#/components/schemas/Pedido/properties/idPago"
-                        pagoCliente:
-                          $ref: "#/components/schemas/Pago/properties/tarjeta"
         204:
           description: El o los platos no están disponibles.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: El o los platos no están disponibles.
-                    example: "El o los platos no están disponibles, vuelve a elegir."
-                  plato:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        idPlato:
-                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
-                        nombrePlato:
-                          $ref: "#/components/schemas/Plato/properties/nombreLargo"
-            application/xml:
               schema:
                 type: object
                 properties:
@@ -397,40 +263,10 @@ paths:
                     type: string
                     default: No seleccionó ningún método de pago.
                     example: "No seleccionó ningún método de pago - Intenta de nuevo."
-            application/xml:
-              schema:
-                type: object
-                properties:
-                  mensajeAutenticacion:
-                    type: string
-                    default: Acceso denegado.
-                    example: "Accecos denegado - Intenta de nuevo."
-                  mensajePago:
-                    type: string
-                    default: No seleccionó ningún método de pago.
-                    example: "No seleccionó ningún método de pago - Intenta de nuevo."
         411:
           description: El campo de dirección esta vacío.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: El campo de dirección esta vacío.
-                    example: "El campo de dirección esta vacío. Por favor ingresa una dirección"
-                  direccion:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        idDireccion:
-                          $ref: "#/components/schemas/Pedido/properties/idDireccion"              
-                        campoDireccion:
-                          type: string
-                          example: "No hay dirección para mostrar"
-            application/xml:
               schema:
                 type: object
                 properties:
@@ -491,14 +327,6 @@ paths:
           description: Acceso denegado.
           content:
             application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Acceso denegado.
-                    example: "accecos denegado - Intenta de nuevo."
-            application/xml:
               schema:
                 type: object
                 properties:
