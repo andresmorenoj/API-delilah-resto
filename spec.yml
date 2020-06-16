@@ -336,7 +336,7 @@ paths:
                         idDireccion:
                           $ref: "#/components/schemas/Pedido/properties/idDireccion"
                         direccionCliente:
-                          $ref: "#/components/schemas/Direcciones/properties/direccion"
+                          $ref: "#/components/schemas/Cliente/properties/direccion"
                         idEstado:
                           $ref: "#/components/schemas/Pedido/properties/idEstado"
                         estadoPedido:
@@ -448,10 +448,106 @@ paths:
                         campoDireccion:
                           type: string
                           example: "No hay dirección para mostrar"
-                
+  
+  /ver/informacion:
+    get:
+      tags:
+        - "Cliente"
+        summary: Ver información personal
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        200:
+          description: El token corresponde al cliente logueado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  idCliente:
+                    $ref: "#/components/schemas/Cliente/properties/idCliente"
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+                  nombreCompleto:
+                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                  correo:
+                    $ref: "#/components/schemas/Cliente/properties/correo"
+                  telefono:
+                    $ref: "#/components/schemas/Cliente/properties/telefono"
+                  direccion:
+                    $ref: "#/components/schemas/Cliente/properties/direccion"
+                  contrasenia:
+                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
 
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
 
+        401:
+          description: La información no corresponde a la del cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: La información no corresponde a la de cliente.
+                    example: "La información no corresponde a la del cliente logueado"
+                  idCliente:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  usuario:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  nombreCompleto:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  correo:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  telefono:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  direccion:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  contrasenia:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
 
+            
 components:
   schemas:
     Cliente:
@@ -462,6 +558,7 @@ components:
         - nombreApellido
         - correo
         - telefono
+        - direccion
         - contrasenia
       properties:
         idCliente:
@@ -481,6 +578,8 @@ components:
         telefono:
           type: string
           example: "+57 4 572 65 98"
+        direccion:
+          $ref: "#/components/schemas/Direcciones/direccion"
         contrasenia:
           type: string
           example: "abc456def123"
