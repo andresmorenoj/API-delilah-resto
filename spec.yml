@@ -18,6 +18,9 @@ tags:
   - name: Administrador
     description: Endpoints para el CRUD de administrador.
 paths:
+
+# ENDPOINTS DEL CLIENTE
+
   /registro:
     post:
       tags:
@@ -589,6 +592,12 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - No eres administrador."
 
+# FIN ENDPOINTS DEL CLIENTE
+
+# ENDPOINTS DEL ADMINISTRADOR
+
+
+# FIN ENDPOINTS DEL ADMINISTRADOR
             
 components:
   schemas:
@@ -753,3 +762,26 @@ components:
           $ref: "#/components/schemas/Estados/properties/idEstado"
         idPago:
           $ref: "#/components/schemas/Pago/properties/idPago"
+
+    Administrador:
+      type: object
+      required:
+        - idAdministrador
+        - usuario
+        - contrasenia
+        - token
+      properties:
+        idAdministrador:
+          type: integer
+          format: uuid
+          example: 1
+        usuaio:
+          type: string
+          example: "adminDR"
+        contrasenia:
+          type: string
+          example: "qeooriu1343"
+        toke:
+          type: string
+          example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          
