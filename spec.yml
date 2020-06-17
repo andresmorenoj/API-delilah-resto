@@ -67,7 +67,7 @@ paths:
                   usuario:
                     $ref: "#/components/schemas/Cliente/properties/usuario"
 
-  /login:
+  /login/cliente:
     post:
       tags:
         - "Cliente"
@@ -595,10 +595,52 @@ paths:
 # FIN ENDPOINTS DEL CLIENTE
 
 # ENDPOINTS DEL ADMINISTRADOR
+  /login/administrador:
+    post:
+      tags:
+        - "Administrador"
+        summary: Login para el administrador
+      requestBody:
+        description: Se debe enviar el *usuario* y *contraseña*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuaio:
+                  $ref: "#/components/schemas/Administrador/properties/usuario"
+                contrasenia:
+                  $ref: "#/components/schemas/Administrador/properties/contrasenia"
+        
+      responses:
+        200:
+          description: Usuario y contraseña correctos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Token generado.
+                    example: "El login del usuario administrador fue correcto y se generó el token de validación"
+                  toke:
+                    $ref: "#/components/schemas/Administrador/properties/token"
 
-
+        400:
+          description: Usuario y/o contrasenia inválidos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Usuario y/o contrasenia inválidos.
+                    example: "Usuario y/o contraseña inválidos, intenta de nuevo"
 # FIN ENDPOINTS DEL ADMINISTRADOR
-            
+
 components:
   schemas:
     Cliente:
@@ -775,13 +817,13 @@ components:
           type: integer
           format: uuid
           example: 1
-        usuaio:
+        usuario:
           type: string
           example: "adminDR"
         contrasenia:
           type: string
           example: "qeooriu1343"
-        toke:
+        token:
           type: string
           example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
           
