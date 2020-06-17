@@ -639,6 +639,101 @@ paths:
                     type: string
                     default: Usuario y/o contrasenia inválidos.
                     example: "Usuario y/o contraseña inválidos, intenta de nuevo"
+
+  /administrador/actualizar/pedido/{idPedido}:
+    put:
+      tags:
+        - "Administrador"
+        summary: Actualizar pedido
+      parameters:
+        - in: path
+          name: Id Pedido
+          description: Se debe enviar el id del pedido que se va a actualizar
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: Token
+          description: Se debe enviar el token de validación del administrador
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Se debe enviar *mínimo* un atributo del plato para ser modificado.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idEstado:
+                  $ref: "#/components/schemas/Pedido/properties/idEstado"
+                estadoNombre:
+                  type: string
+                  example: "Preparación"
+                estado: 
+                  $ref: "#/components/schemas/Estados/properties/preparacion"
+
+      responses:
+        200: 
+          description: Autenticacion exitosa - El pedido existe - El estado del pedido es diferente de *entregado* o *eliminado*
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Autenticacion exitosa - El pedido existe - El estado del pedido no es *entregado* o *eliminado*
+                    example: "El token corresponde al administrador. El pedido existe y se encuentra en un estado diferente de *entregado* o *eliminado*"
+                  idEstado:
+                    $ref: "#/components/schemas/Pedido/properties/idEstado"
+                  estadoNombre:
+                    type: string
+                    example: "Preparación"
+                  estadoAnterior: 
+                    $ref: "#/components/schemas/Estados/properties/preparacion"
+                  nuevoEstado: 
+                    type: boolean
+                    example: true
+
+        400:
+          description: Autenticacion fallida - Pedido en estado de *entregado* o *eliminado*
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Autenticacion fallida.
+                    example: "El token no corresponde a un token de administrador - Autenticacion fallida."
+                  mensajePedido:
+                    type: string
+                    default: Pedido en estado *entregado* o *eliminado*
+                    example: "La operación no se puede hacer porque el pedido esta en estado *entregado* o *eliminado*"
+                  estadoNombre:
+                    type: string
+                    example: Entregado
+                  estado:
+                    type: boolean
+                    example: true
+
+        204:
+          description: No hay pedido
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    idPedido:
+                      $ref: "#/components/schemas/Pedido/properties/idPedido"
+                    mensaje:
+                      type: string
+                      default: No hay pedido.
+                      example: El pedido con el ID especificado no existe.
+
+                  
 # FIN ENDPOINTS DEL ADMINISTRADOR
 
 components:
