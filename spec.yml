@@ -21,20 +21,24 @@ paths:
 
 # ENDPOINTS DEL CLIENTE
 
-  /platos/todos:
+  /{Cliente}/platos/todos:
     get:
       tags:
         - "Cliente"
       summary: Listar todos los platos.
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token generado cuando el cliente hace login.
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
 
       responses:
         200:
@@ -75,20 +79,24 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - Intenta de nuevo."
 
-  /ver/informacion:
+  /{Cliente}/ver/informacion:
     get:
       tags:
         - "Cliente"
       summary: Ver información personal
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.  
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
       
       responses:
         200:
@@ -243,7 +251,7 @@ paths:
                     type: string
                     default: Token generado.
                     example: "El login del usuaio fue correcto y se generó el Token."
-                  toke:
+                  token:
                     type: string
                     example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
           
@@ -259,20 +267,24 @@ paths:
                     default: Usuario y/o contraseña inválidos.
                     example: "Usuario y/o contraseña inválidos, intenta de nuevo"
 
-  /pedido:
+  /{Cliente}/pedido:
     post:
       tags:
         - "Cliente"
       summary: Realizar pedido
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el Token de validadición del cliente.
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
       requestBody:
         description: Todos los campos son *obligatorios*
         required: true
@@ -378,20 +390,24 @@ paths:
                           type: string
                           example: "No hay dirección para mostrar"
 
-  /editar/informacion:
+  /{Cliente}/editar/informacion:
     put:
       tags:
         - "Cliente"
       summary: Editiar información personal
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.  
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
       requestBody:
         description: Información del cliente que va a ser editada
         required: true
@@ -480,20 +496,24 @@ paths:
                     default: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
                     example: Tu autenticacion no fue correcta. No puedes ver o editar esta información.
 
-  /editar/plato:
+  /{Cliente}/editar/plato:
     put:
       tags:
         - "Cliente"
       summary: Editar plato
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
 
       responses:
         400:
@@ -508,20 +528,24 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - No eres administrador."
 
-  /editar/pedido:
+  /{Cliente}/editar/pedido:
     put:
       tags:
         - "Cliente"
       summary: Editar pedido
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
 
       responses:
         400:
@@ -536,20 +560,24 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - No eres administrador."
 
-  /eliminar/plato:
+  /{Cliente}/eliminar/plato:
     delete:
       tags:
         - "Cliente"
       summary: Eliminar plato
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.  
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
       
       responses:
         400:
@@ -564,20 +592,24 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - No eres administrador."
 
-  /eliminar/pedido:
+  /{Cliente}/eliminar/pedido:
     delete:
       tags:
         - "Cliente"
       summary: Eliminar pedido
       parameters:
+        - in: path
+          name: Cliente
+          description: Usuario cliente
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.  
           required: true
           schema:
-            type: array
-            items:
-              type: string
+            type: string
       
       responses:
         400:
@@ -596,14 +628,14 @@ paths:
 
 # ENDPOINTS DEL ADMINISTRADOR
 
-  /{Usuario}/platos/todos:
+  /{Administrador}/platos/todos:
     get:
       tags:
         - "Administrador"
-        summary: Listar todos los platos
+      summary: Listar todos los platos
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -654,14 +686,14 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar todos los platos ya que no se pudo autenticar al usuario como administador."
 
-  /{Usuario}/platos/{idPlato}:
+  /{Administrador}/platos/{idPlato}:
     get:
       tags:
         - "Administrador"
-        summary: Listar platos por ID
+      summary: Listar platos por ID
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administador
           required: true
           schema:
@@ -675,6 +707,7 @@ paths:
         - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
+          required: true
           schema:
             type: string
 
@@ -719,14 +752,14 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar el plato ya que no se pudo autenticar al usuario como administador."
 
-  /{Usuario}/pedidos/todos:
+  /{Administrador}/pedidos/todos:
     get:
       tags:
         - "Administrador"
-        summary: Listar todos los pedidos
+      summary: Listar todos los pedidos
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -777,14 +810,14 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar todos los pedidos ya que no se pudo autenticar al usuario como administador."
               
-  /{Usuario}/pedidos/{idPedido}:
+  /{Administrador}/pedidos/{idPedido}:
     get:
       tags:
         - "Administrador"
-        summary: Listar pedidos por ID
+      summary: Listar pedidos por ID
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -874,7 +907,7 @@ paths:
     post:
       tags:
         - "Administrador"
-        summary: Login para el administrador
+      summary: Login para el administrador
       requestBody:
         description: Se debe enviar el *usuario* y *contraseña*
         required: true
@@ -915,14 +948,14 @@ paths:
                     default: Usuario y/o contrasenia inválidos.
                     example: "Usuario y/o contraseña inválidos, intenta de nuevo"
                   
-  /{usuario}/crear/plato:
+  /{Administrador}/crear/plato:
     post:
       tags:
         - "Administrador"
-        summary: Crear plato
+      summary: Crear plato
       parameters:
         - in: path
-          name: usuaio
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -972,10 +1005,10 @@ paths:
                     type: string
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible crear el plato ya que no se pudo autenticar al usuario como administador."
-                mensajePeticion:
-                  type: string
-                  default: Petición mal enviada.
-                  example: "Petición mal enviada, por favor verifica que todos los campos se están enviando de forma correcta"
+                  mensajePeticion:
+                    type: string
+                    default: Petición mal enviada.
+                    example: "Petición mal enviada, por favor verifica que todos los campos se están enviando de forma correcta"
 
         409:
           description: El plato ya existe
@@ -991,14 +1024,14 @@ paths:
                   plato:
                     $ref: "#/components/schemas/Plato"
 
-  /{Usuario}/actualizar/pedido/{idPedido}:
+  /{Administrador}/actualizar/pedido/{idPedido}:
     put:
       tags:
         - "Administrador"
-        summary: Actualizar pedido
+      summary: Actualizar pedido
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -1090,14 +1123,14 @@ paths:
                       default: No hay pedido.
                       example: El pedido con el ID especificado no existe.
 
-  /{usuario}/editar/plato/{idPlato}:
+  /{Administrador}/editar/plato/{idPlato}:
     put:
       tags:
         - "Administrador"
-        summary: Actualizar plato
+      summary: Actualizar plato
       parameters:
         - in: path
-          name: usuario
+          name: Administrador
           description: Usuario administrador
           required: true
           schema:
@@ -1178,14 +1211,14 @@ paths:
                     default: No hay plato.
                     example: El plato con el ID especificado no existe.
 
-  /{Usuario}/eliminar/plato/{idPlato}:
+  /{Administrador}/eliminar/plato/{idPlato}:
     delete:
       tags:
         - "Administrador"
-        summary: Eliminar plato
+      summary: Eliminar plato
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administador
           required: true
           schema:
@@ -1245,14 +1278,14 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible eliminar el plato ya que no se pudo autenticar al usuario como administador."
 
-  /{Usuario}/eliminar/pedido/{idPedido}:
+  /{Administrador}/eliminar/pedido/{idPedido}:
     delete:
       tags:
         - "Administrador"
-        summary: Eliminar pedido
+      summary: Eliminar pedido
       parameters:
         - in: path
-          name: Usuario
+          name: Administrador
           description: Usuario administador
           required: true
           schema:
