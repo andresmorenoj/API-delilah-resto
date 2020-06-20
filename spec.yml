@@ -16,7 +16,7 @@ tags:
   - name: Cliente
     description: Endpoints para el CRUD de los clientes.
   - name: Administrador
-    description: Endpoints para el CRUD de administrador.
+    description: Endpoints para el CRUD del administrador.
 paths:
 
 # ENDPOINTS DEL CLIENTE
@@ -640,20 +640,20 @@ paths:
                     default: Usuario y/o contrasenia inválidos.
                     example: "Usuario y/o contraseña inválidos, intenta de nuevo"
 
-  /{usuario}/actualizar/pedido/{idPedido}:
+  /{Usuario}/actualizar/pedido/{idPedido}:
     put:
       tags:
         - "Administrador"
         summary: Actualizar pedido
       parameters:
         - in: path
-          name: usuario
+          name: Usuario
           description: Usuario administrador
           required: true
           schema:
             type: string
         - in: path
-          name: idPlato
+          name: idPedido
           description: Se debe enviar el id del pedido que se va a actualizar
           required: true
           schema:
@@ -665,7 +665,7 @@ paths:
           schema:
             type: string
       requestBody:
-        description: Se debe enviar *mínimo* un atributo del plato para ser modificado.
+        description: Atributo del pedido para ser modificado.
         required: true
         content:
           application/json:
@@ -738,6 +738,94 @@ paths:
                       type: string
                       default: No hay pedido.
                       example: El pedido con el ID especificado no existe.
+
+  /{usuario}/editar/plato/{idPlato}:
+    put:
+      tags:
+        - "Administrador"
+        summary: Actualizar pedido
+      parameters:
+        - in: path
+          name: usuario
+          description: Usuario administrador
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: idPlato
+          description: Se debe enviar el id del pedido que se va a actualizar
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: Token
+          description: Se debe enviar el token de validación del administrador
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Se debe enviar *mínimo* un atributo del plato para ser modificado.
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idPlato:
+                  $ref: "#/components/schemas/Plato/properties/idPlato"
+                precio:
+                  type: integer
+                  example: 10500
+
+      responses:
+        200: 
+          description: Autenticacion exitosa - El plato existe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Autenticacion exitosa - El plato existe.
+                    example: "El token corresponde al administrador. El plato existe y puede ser editado"
+                  idPlato:
+                    $ref: "#/components/schemas/Plato/properties/idPlato"
+                  precioNuevo:
+                    type: integer
+                    example: 10500
+                  precioAnterior: 
+                    $ref: "#/components/schemas/Plato/properties/precio"
+
+        400:
+          description: Autenticacion fallida - Petición mal enviada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Autenticacion fallida.
+                    example: "El token no corresponde a un token de administrador - Autenticacion fallida."
+                  mensajePlato:
+                    type: string
+                    default: Petición al enviada.
+                    example: "La operación no se puede hacer. Verifica que la petición se esté realizando correctamente"
+
+        204:
+          description: No hay plato
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    idPedido:
+                      $ref: "#/components/schemas/Plato/properties/idPlato"
+                    mensaje:
+                      type: string
+                      default: No hay plato.
+                      example: El plato con el ID especificado no existe.
 
   /{usuario}/crear/plato:
     post:
