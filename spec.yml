@@ -640,12 +640,18 @@ paths:
                     default: Usuario y/o contrasenia inválidos.
                     example: "Usuario y/o contraseña inválidos, intenta de nuevo"
 
-  /administrador/actualizar/pedido/{idPedido}:
+  /{usuario}/actualizar/pedido/{idPedido}:
     put:
       tags:
         - "Administrador"
         summary: Actualizar pedido
       parameters:
+        - in: path
+          name: usuario
+          description: Usuario administrador
+          required: true
+          schema:
+            type: string
         - in: path
           name: idPlato
           description: Se debe enviar el id del pedido que se va a actualizar
@@ -733,12 +739,18 @@ paths:
                       default: No hay pedido.
                       example: El pedido con el ID especificado no existe.
 
-  /administrador/crear/plato:
+  /{usuario}/crear/plato:
     post:
       tags:
         - "Administrador"
         summary: Crear plato
       parameters:
+        - in: path
+          name: usuaio
+          description: Usuario administrador
+          required: true
+          schema:
+            type: string
         - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
@@ -791,7 +803,7 @@ paths:
 
         409:
           description: El plato ya existe
-          contact:
+          content:
             application/json:
               schema:
                 type: object
