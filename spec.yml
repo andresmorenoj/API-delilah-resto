@@ -647,7 +647,7 @@ paths:
         summary: Actualizar pedido
       parameters:
         - in: path
-          name: Id Pedido
+          name: idPlato
           description: Se debe enviar el id del pedido que se va a actualizar
           required: true
           schema:
@@ -733,6 +733,76 @@ paths:
                       default: No hay pedido.
                       example: El pedido con el ID especificado no existe.
 
+  /administrador/crear/plato:
+    post:
+      tags:
+        - "Administrador"
+        summary: Crear plato
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token de validación del administrador
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: Se deben enviar todos los datos requeridos para crear un plato
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Plato"
+      
+      responses:
+        201:
+          description: Autenticacion exitosa - Creación del plato exitosa
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Autenticacion exitosa.
+                    example: "La autenticacion del asuario fue exitosa y corresponde a un administrador."
+                  mensajePlato:
+                    type: string
+                    default: Creación del plato exitosa.
+                    example: "El plato se creó con exito."
+                  plato:
+                    $ref: "#/components/schemas/Plato"
+
+        400:
+          description: Autenticacion fallida | Petición mal enviada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensajeAutenticacion:
+                    type: string
+                    default: Autenticacion fallida - El usuario no corresponde a un administrador.
+                    example: "No fue posible crear el plato ya que no se pudo autenticar al usuario como administador."
+                mensajePeticion:
+                  type: string
+                  default: Petición mal enviada.
+                  example: "Petición mal enviada, por favor verifica que todos los campos se están enviando de forma correcta"
+
+        409:
+          description: El plato ya existe
+          contact:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El plato ya exisite.
+                    example: "El plato que estas intentado crear ya se encuentra registrado. Intenta nuevamente con un plato diferente"
+                  plato:
+                    $ref: "#/components/schemas/Plato"
+
                   
 # FIN ENDPOINTS DEL ADMINISTRADOR
 
@@ -794,7 +864,7 @@ components:
         foto:
           type: string
           format: url
-          example: "delilah-resto.com/plato/per-ca-ens"
+          example: "https://dam.cocinafacil.com.mx/wp-content/uploads/2019/04/hot-dog-hawaiano.png"
         precio:
           type: integer
           example: 7000
