@@ -751,38 +751,7 @@ paths:
                     default: Validación correcta.
                     example: "Validación del administrador realizada con éxito."
                   pedidos:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        idPedido:
-                          $ref: "#/components/schemas/Pedido/properties/idPedido"
-                        idCliente:
-                          $ref: "#/components/schemas/Pedido/properties/idCliente"
-                        nombreCliente:
-                          $ref: "#/components/schemas/Cliente/properties/nombreApellido"
-                        idPlato:
-                          $ref: "#/components/schemas/Pedido/properties/idPlato"              
-                        nombrePlato:
-                          $ref: "#/components/schemas/Plato/properties/nombreCorto"
-                        idDireccion:
-                          $ref: "#/components/schemas/Pedido/properties/idDireccion"
-                        direccionCliente:
-                          $ref: "#/components/schemas/Direcciones/properties/direccion"
-                        idEstado:
-                          $ref: "#/components/schemas/Pedido/properties/idEstado"
-                        estadoNombre:
-                          type: string
-                          example: "Nuevo"
-                        estadoPedido:
-                          $ref: "#/components/schemas/Estados/properties/nuevo"
-                        idPago:
-                          $ref: "#/components/schemas/Pedido/properties/idPago"
-                        pagoTipo:
-                          type: string
-                          example: "Tarjeta"
-                        pagoCliente:
-                          $ref: "#/components/schemas/Pago/properties/tarjeta"
+                    $ref: "#/components/schemas/Pedidos"
 
         204:
           description: No hay pedidos
@@ -1508,6 +1477,40 @@ components:
           $ref: "#/components/schemas/Estados/properties/idEstado"
         idPago:
           $ref: "#/components/schemas/Pago/properties/idPago"
+
+    Pedidos:
+      type: array
+      items:
+        type: object
+        properties:
+          idPedido:
+            $ref: "#/components/schemas/Pedido/properties/idPedido"
+          idCliente:
+            $ref: "#/components/schemas/Pedido/properties/idCliente"
+          nombreCliente:
+            $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+          idPlato:
+            $ref: "#/components/schemas/Pedido/properties/idPlato"              
+          nombrePlato:
+            $ref: "#/components/schemas/Plato/properties/nombreCorto"
+          idDireccion:
+            $ref: "#/components/schemas/Pedido/properties/idDireccion"
+          direccionCliente:
+            $ref: "#/components/schemas/Direcciones/properties/direccion"
+          idEstado:
+            $ref: "#/components/schemas/Pedido/properties/idEstado"
+          estadoNombre:
+            type: string
+            example: "Nuevo"
+          estadoPedido:
+            $ref: "#/components/schemas/Estados/properties/nuevo"
+          idPago:
+            $ref: "#/components/schemas/Pedido/properties/idPago"
+          pagoTipo:
+            type: string
+            example: "Tarjeta"
+          pagoCliente:
+            $ref: "#/components/schemas/Pago/properties/tarjeta"
 
     Administrador:
       type: object
