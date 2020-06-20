@@ -815,7 +815,66 @@ paths:
                   plato:
                     $ref: "#/components/schemas/Plato"
 
-                  
+  /{Usuario}/platos/todos:
+    get:
+      tags:
+        - "Administrador"
+        summary: Listar todos los platos
+      parameters:
+        - in: path
+          name: Usuario
+          description: Usuario administrador
+          required: true
+          schema:
+            type: string
+        - in: path
+            name: Token
+            description: Se debe enviar el token de validación del administrador
+            required: true
+            schema:
+              type: string
+
+      responses:
+        200:
+          description: El token corresponde a un usuario administrador
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Validación correcta.
+                    example: "Validación del administrador realizada con éxito."
+                  platos:
+                    $ref: "#/components/schemas/Platos"
+
+        204:
+          description: No hay platos
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: No hay platos.
+                    example: "No hay platos disponibles para mostrar"  
+
+        400:
+          description: Autenticacion fallida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Autenticacion fallida - El usuario no corresponde a un administrador.
+                    example: "No fue posible listar todos los platos ya que no se pudo autenticar al usuario como administador."
+
+          
+                    
 # FIN ENDPOINTS DEL ADMINISTRADOR
 
 components:
