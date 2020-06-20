@@ -21,100 +21,6 @@ paths:
 
 # ENDPOINTS DEL CLIENTE
 
-  /registro:
-    post:
-      tags:
-        - "Cliente"
-      summary: Crear un cliente nuevo.
-      requestBody:
-        description: Todos los compos son *requeridos.*
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Cliente"
-      responses:
-        201:
-          description: Registro exitoso.
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Cliente"
-
-        400:
-          description: Petición mal enviada.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Petición mal enviada.
-                    example: "Petición mal enviada."
-
-        409:
-          description: Cliente ya existe.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: El cliente ya exisite.
-                    example: "El cliente ya exisite."
-                  usuario:
-                    $ref: "#/components/schemas/Cliente/properties/usuario"
-
-  /login/cliente:
-    post:
-      tags:
-        - "Cliente"
-      summary: Login del cliente
-      requestBody:
-        description: Se debe enviar *usuario* y *contraseña*
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                usuario:
-                  type: string
-                  $ref: "#/components/schemas/Cliente/properties/usuario"
-                contrasenia:
-                  type: string
-                  $ref: "#/components/schemas/Cliente/properties/contrasenia"
-
-      responses:
-        200:
-          description: Usuario y contraña correctos.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Token generado.
-                    example: "El login del usuaio fue correcto y se generó el Token."
-                  toke:
-                    type: string
-                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-          
-        400:
-          description: Usuario y/o contraseña inválidos.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Usuario y/o contraseña inválidos.
-                    example: "Usuario y/o contraseña inválidos, intenta de nuevo"
-
   /platos/todos:
     get:
       tags:
@@ -169,28 +75,212 @@ paths:
                     default: Acceso denegado.
                     example: "accecos denegado - Intenta de nuevo."
 
-  /pedido:
-    post:
+  /ver/informacion:
+    get:
       tags:
         - "Cliente"
-        summary: Realizar pedido
-        parameters:
-          - in: header
-            name: Token
-            description: Se debe enviar el Token de validadición del cliente.
-            required: true
-            schema:
-              type: array
-              items:
-                type: string
-        requestBody:
-          description: Todos los campos son *obligatorios*
+      summary: Ver información personal
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el token que identifica al cliente cuando hace login.  
           required: true
+          schema:
+            type: array
+            items:
+              type: string
+      
+      responses:
+        200:
+          description: El token corresponde al cliente logueado.
           content:
             application/json:
               schema:
                 type: object
-                $ref: "#/components/schemas/Pedido"
+                properties:
+                  idCliente:
+                    $ref: "#/components/schemas/Cliente/properties/idCliente"
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+                  nombreCompleto:
+                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
+                  correo:
+                    $ref: "#/components/schemas/Cliente/properties/correo"
+                  telefono:
+                    $ref: "#/components/schemas/Cliente/properties/telefono"
+                  direccion:
+                    $ref: "#/components/schemas/Cliente/properties/direccion"
+                  contrasenia:
+                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
+
+        400:
+          description: Acceso denegado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Acceso denegado.
+                    example: "accecos denegado - Intenta de nuevo."
+
+        401:
+          description: La información no corresponde a la del cliente
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: La información no corresponde a la de cliente.
+                    example: "La información no corresponde a la del cliente logueado"
+                  idCliente:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  usuario:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  nombreCompleto:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  correo:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  telefono:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  direccion:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+                  contrasenia:
+                    type: string
+                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
+                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
+
+  /registro:
+    post:
+      tags:
+        - "Cliente"
+      summary: Crear un cliente nuevo.
+      requestBody:
+        description: Todos los compos son *requeridos.*
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cliente"
+      responses:
+        201:
+          description: Registro exitoso.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cliente"
+
+        400:
+          description: Petición mal enviada.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Petición mal enviada.
+                    example: "Petición mal enviada."
+
+        409:
+          description: Cliente ya existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El cliente ya exisite.
+                    example: "El cliente ya exisite."
+                  usuario:
+                    $ref: "#/components/schemas/Cliente/properties/usuario"
+                  
+  /login/cliente:
+    post:
+      tags:
+        - "Cliente"
+      summary: Login del cliente
+      requestBody:
+        description: Se debe enviar *usuario* y *contraseña*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario:
+                  type: string
+                  $ref: "#/components/schemas/Cliente/properties/usuario"
+                contrasenia:
+                  type: string
+                  $ref: "#/components/schemas/Cliente/properties/contrasenia"
+
+      responses:
+        200:
+          description: Usuario y contraña correctos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Token generado.
+                    example: "El login del usuaio fue correcto y se generó el Token."
+                  toke:
+                    type: string
+                    example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+          
+        400:
+          description: Usuario y/o contraseña inválidos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Usuario y/o contraseña inválidos.
+                    example: "Usuario y/o contraseña inválidos, intenta de nuevo"
+
+  /pedido:
+    post:
+      tags:
+        - "Cliente"
+      summary: Realizar pedido
+      parameters:
+        - in: header
+          name: Token
+          description: Se debe enviar el Token de validadición del cliente.
+          required: true
+          schema:
+            type: array
+            items:
+              type: string
+      requestBody:
+        description: Todos los campos son *obligatorios*
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Pedido"
 
       responses:
         200:
@@ -287,96 +377,6 @@ paths:
                         campoDireccion:
                           type: string
                           example: "No hay dirección para mostrar"
-  
-  /ver/informacion:
-    get:
-      tags:
-        - "Cliente"
-      summary: Ver información personal
-      parameters:
-        - in: header
-          name: Token
-          description: Se debe enviar el token que identifica al cliente cuando hace login.  
-          required: true
-          schema:
-            type: array
-            items:
-              type: string
-      
-      responses:
-        200:
-          description: El token corresponde al cliente logueado.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  idCliente:
-                    $ref: "#/components/schemas/Cliente/properties/idCliente"
-                  usuario:
-                    $ref: "#/components/schemas/Cliente/properties/usuario"
-                  nombreCompleto:
-                    $ref: "#/components/schemas/Cliente/properties/nombreApellido"
-                  correo:
-                    $ref: "#/components/schemas/Cliente/properties/correo"
-                  telefono:
-                    $ref: "#/components/schemas/Cliente/properties/telefono"
-                  direccion:
-                    $ref: "#/components/schemas/Cliente/properties/direccion"
-                  contrasenia:
-                    $ref: "#/components/schemas/Cliente/properties/contrasenia"
-
-        400:
-          description: Acceso denegado.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: Acceso denegado.
-                    example: "accecos denegado - Intenta de nuevo."
-
-        401:
-          description: La información no corresponde a la del cliente
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  mensaje:
-                    type: string
-                    default: La información no corresponde a la de cliente.
-                    example: "La información no corresponde a la del cliente logueado"
-                  idCliente:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  usuario:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  nombreCompleto:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  correo:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  telefono:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  direccion:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
-                  contrasenia:
-                    type: string
-                    default: Tu autenticacion no fue correcta. No puedes ver esta información.
-                    example: Tu autenticacion no fue correcta. No puedes ver esta información.
 
   /editar/informacion:
     put:
@@ -484,7 +484,7 @@ paths:
     put:
       tags:
         - "Cliente"
-        summary: Editar plato
+      summary: Editar plato
       parameters:
         - in: header
           name: Token
@@ -512,7 +512,7 @@ paths:
     put:
       tags:
         - "Cliente"
-        summary: Editar pedido
+      summary: Editar pedido
       parameters:
         - in: header
           name: Token
