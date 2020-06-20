@@ -1208,6 +1208,74 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar el pedido ya que no se pudo autenticar al usuario como administador."
 
+  /{Usuario}/eliminar/plato/{idPlato}:
+    delete:
+      tags:
+        - "Administrador"
+        summary: Eliminar plato
+      parameters:
+        - in: path
+          name: Usuario
+          description: Usuario administador
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: idPlato
+          description: Id del plato
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: Token
+          description: Se debe enviar el token de validación del administrador
+          required: true
+          schema:
+            type: string
+      
+      responses:
+        200:
+          description: Autenticacion exitosa - Se eliminó el plato
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Autenticacion exitosa - Se eliminó el plato.
+                    example: "Se autenticó el token y se eliminó el plato con éxito."
+                  platoEliminado:
+                    type: object
+                    $ref: "#/components/schemas/Plato"
+
+        204:
+          description: El plato no existe
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: El plato no existe.
+                    example: "El plato con el ID especificado no existe"
+                  idPlato:
+                    $ref: "#/components/schemas/Plato/properties/idPlato"
+        
+        400:
+          description: Autenticacion fallida
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  mensaje:
+                    type: string
+                    default: Autenticacion fallida - El usuario no corresponde a un administrador.
+                    example: "No fue posible eliminar el plato ya que no se pudo autenticar al usuario como administador."
+
+
 # FIN ENDPOINTS DEL ADMINISTRADOR
 
 components:
