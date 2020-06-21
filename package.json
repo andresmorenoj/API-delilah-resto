@@ -1,0 +1,36 @@
+{
+  "name": "api-delilah-resto",
+  "version": "1.0.0",
+  "description": "API RESTFULL para el proyecto final de Acámica. API Delilah Restó permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.",
+  "main": "api.js",
+  "scripts": {
+    "dev": "nodemon api.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresmorenoj/API-delilah-resto.git"
+  },
+  "keywords": [
+    "Node.js",
+    "SQL",
+    "express",
+    "JWT",
+    "sequelize"
+  ],
+  "author": "Andrés Moreno",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andresmorenoj/API-delilah-resto/issues"
+  },
+  "homepage": "https://github.com/andresmorenoj/API-delilah-resto#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.1.0",
+    "sequelize": "^5.21.13"
+  }
+}
