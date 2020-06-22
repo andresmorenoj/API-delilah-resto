@@ -10,7 +10,7 @@ router.use(bodyParser());
 
 // ENDPOINTS
 
-// Registrar a un cliente
+// Registrar
 router.post('/registro', (req, res) => {
   const { usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
   sequelize.query('INSERT INTO cliente (idCliente, usuario, nombreApellido, correo, telefono, direccion, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?)',
@@ -18,11 +18,17 @@ router.post('/registro', (req, res) => {
   res.status(201).json('usuario creado')
 });
 
-// Login cliente
+// Login
 router.post('/login', (req, res) => {
   const { usuario } = req.body;
   const token = jwt.sign({ usuario }, firmaSegura);
   res.json({ 'mensaje': 'El login del usuaio fue correcto y se generó el Token.', token });
 })
 
-module.exports = router
+// Listar los platos
+router.get('/:usuario/platos/todos', (req, res) => {
+  sequelize.query('SELECT * FROM plato', { type: sequelize.QueryTypes.SELECT })
+    .then(response => res.json(response));
+})
+
+module.exports = { router, firmaSegura };
