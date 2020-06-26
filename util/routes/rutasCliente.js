@@ -12,9 +12,9 @@ router.use(bodyParser());
 
 // Registrar
 router.post('/registro', (req, res) => {
-  const { usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
-  sequelize.query('INSERT INTO cliente (idCliente, usuario, nombreApellido, correo, telefono, direccion, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    { replacements: [null, usuario, nombreApellido, correo, telefono, direccion, contrasenia] })
+  const { administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
+  sequelize.query('INSERT INTO cliente (idCliente, administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    { replacements: [null, administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia] })
   res.status(201).json('usuario creado')
 });
 
