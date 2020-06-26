@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
+const { response } = require('express');
 const firmaSegura = 'jue098742onc_234?*23WDS';
 const router = express.Router();
 const sequelize = new Sequelize('mysql://root:root@127.0.0.1:8889/Delilah_Resto');
@@ -29,6 +30,13 @@ router.post('/login', (req, res) => {
 router.get('/:usuario/platos/todos', (req, res) => {
   sequelize.query('SELECT * FROM plato', { type: sequelize.QueryTypes.SELECT })
     .then(response => res.json(response));
+})
+
+// Ver información personal
+router.get('/:usuario/ver/informacion/', (req, res) => {
+  const { idCliente } = req.query
+  sequelize.query('SELECT * FROM cliente WHERE idCliente = ?', { replacements: [idCliente], type: sequelize.QueryTypes.SELECT })
+    .then(response => res.json(response))
 })
 
 module.exports = { router, firmaSegura };

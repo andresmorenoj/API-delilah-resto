@@ -14,6 +14,7 @@ const usuarioYaExiste = require('./util/middlewares/cliente/usuarioExiste');
 const validarLogin = require('./util/middlewares/cliente/validarLogin');
 const validarPlatos = require('./util/middlewares/cliente/validarPlatos');
 const autenticacionToken = require('./util/middlewares/cliente/autenticacionToken')
+const verInformacionPersonal = require('./util/middlewares/cliente/verInformacionPersonal')
 
 // ENDPOINTS CLIENTE
 
@@ -24,4 +25,7 @@ api.post('/registro', peticionMalEviada, usuarioYaExiste, router);
 api.post('/login', validarLogin, router);
 
 // Listar los platos - Cliente
-api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router)
+api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router);
+
+// Ver información personal
+api.get('/:usuario/ver/informacion', autenticacionToken, verInformacionPersonal, router);
