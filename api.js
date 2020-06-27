@@ -45,3 +45,6 @@ api.put('/:usuario/editar/pedido', validarAdmin, router);
 
 // Eliminar plato
 api.delete('/:usuario/eliminar/plato', validarAdmin, router);
+
+// Eliminar pedido
+api.delete('/:usuario/eliminar/pedido', validarAdmin, router);
