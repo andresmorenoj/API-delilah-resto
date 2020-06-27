@@ -31,4 +31,5 @@ api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router);
 api.get('/:usuario/ver/informacion', autenticacionToken, validarInformacion, router);
 
 // Realizar pedido
-api.post('/:usuario/pedido', autenticacionToken, validarInformacion, validarPlatos, router)
+api.post('/:usuario/pedido', autenticacionToken, validarInformacion, validarPlatos, router);
+api.put('/:usuario/editar/informacion', autenticacionToken, validarInformacion, router)

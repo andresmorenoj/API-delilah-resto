@@ -2,7 +2,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
-const { response } = require('express');
 const firmaSegura = 'jue098742onc_234?*23WDS';
 const router = express.Router();
 const sequelize = new Sequelize('mysql://root:root@127.0.0.1:8889/Delilah_Resto');
@@ -50,5 +49,18 @@ router.post('/:usuario/pedido', (req, res) => {
       res.status(201).json({ "mensaje": "La validadción del cliente y los comapos fue exitosa. El pedido fue creado", response })
     })
 });
+
+// Editar información personal
+router.put('/:usuario/editar/informacion', (req, res) => {
+  const { usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
+  const { idCliente } = req.query;
+  sequelize.query('UPDATE cliente SET usuario = ?, nombreApellido = ?, correo = ?, telefono = ?, direccion = ?, contrasenia = ? WHERE idCliente = ?',
+    { replacements: [usuario, nombreApellido, correo, telefono, direccion, contrasenia, idCliente] })
+    .then(response => {
+      res.status(201).json({ "mensaje": "La información se actualizó con éxito." })
+    })
+
+
+})
 
 module.exports = { router, firmaSegura };
