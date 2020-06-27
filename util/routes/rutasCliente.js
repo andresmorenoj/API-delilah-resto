@@ -59,8 +59,10 @@ router.put('/:usuario/editar/informacion', (req, res) => {
     .then(response => {
       res.status(201).json({ "mensaje": "La información se actualizó con éxito." })
     })
+});
 
-
+// Editar plato
+router.put('/:usuario/editar/plato', (req, res) => {
+  res.status(400).json({ "mensaje": "Acceso denegado" })
 })
-
 module.exports = { router, firmaSegura };
