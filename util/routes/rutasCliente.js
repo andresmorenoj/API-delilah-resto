@@ -64,5 +64,15 @@ router.put('/:usuario/editar/informacion', (req, res) => {
 // Editar plato
 router.put('/:usuario/editar/plato', (req, res) => {
   res.status(400).json({ "mensaje": "Acceso denegado" })
-})
+});
+
+// Editar pedido
+router.put('/:usuario/editar/pedido', (req, res) => {
+  res.status(400).json({ "mensaje": "Acceso denegado" })
+});
+
+// Eliminar plato
+router.delete('/:usuario/eliminar/plato', (req, res) => {
+  res.status(400).json({ "mensaje": "Acceso denegado" })
+});
 module.exports = { router, firmaSegura };

@@ -525,6 +525,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idCliente
+          description: Id del cliente
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.
@@ -557,6 +563,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idCliente
+          description: Id del cliente
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.
@@ -589,6 +601,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idCliente
+          description: Id del cliente
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token que identifica al cliente cuando hace login.

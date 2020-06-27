@@ -38,4 +38,10 @@ api.post('/:usuario/pedido', autenticacionToken, validarInformacion, validarPlat
 api.put('/:usuario/editar/informacion', autenticacionToken, validarInformacion, router);
 
 // Editar plato
-api.put('/:usuario/editar/plato', validarAdmin, router)
+api.put('/:usuario/editar/plato', validarAdmin, router);
+
+// Editar pedido
+api.put('/:usuario/editar/pedido', validarAdmin, router);
+
+// Eliminar plato
+api.delete('/:usuario/eliminar/plato', validarAdmin, router);
