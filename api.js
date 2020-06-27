@@ -14,7 +14,7 @@ const usuarioYaExiste = require('./util/middlewares/cliente/usuarioExiste');
 const validarLogin = require('./util/middlewares/cliente/validarLogin');
 const validarPlatos = require('./util/middlewares/cliente/validarPlatos');
 const autenticacionToken = require('./util/middlewares/cliente/autenticacionToken')
-const verInformacionPersonal = require('./util/middlewares/cliente/verInformacionPersonal')
+const validarInformacion = require('./util/middlewares/cliente/validarInformacion')
 
 // ENDPOINTS CLIENTE
 
@@ -28,4 +28,7 @@ api.post('/login', validarLogin, router);
 api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router);
 
 // Ver información personal
-api.get('/:usuario/ver/informacion', autenticacionToken, verInformacionPersonal, router);
+api.get('/:usuario/ver/informacion', autenticacionToken, validarInformacion, router);
+
+// Realizar pedido
+api.post('/:usuario/pedido', autenticacionToken, validarInformacion, validarPlatos, router)

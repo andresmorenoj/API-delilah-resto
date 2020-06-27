@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const jwt = require('jsonwebtoken');
 const sequelize = new Sequelize('mysql://root:root@127.0.0.1:8889/Delilah_Resto');
 
-function verInformacionPersonal(req, res, next) {
+function validarInformacion(req, res, next) {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const { idCliente } = req.query;
@@ -21,4 +21,4 @@ function verInformacionPersonal(req, res, next) {
   }
 }
 
-module.exports = verInformacionPersonal;
+module.exports = validarInformacion;

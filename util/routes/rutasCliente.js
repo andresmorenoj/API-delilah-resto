@@ -37,6 +37,18 @@ router.get('/:usuario/ver/informacion/', (req, res) => {
   const { idCliente } = req.query
   sequelize.query('SELECT * FROM cliente WHERE idCliente = ?', { replacements: [idCliente], type: sequelize.QueryTypes.SELECT })
     .then(response => res.json(response))
-})
+});
+
+// Realizar pedido
+router.post('/:usuario/pedido', (req, res) => {
+  const { idPlato, idPago } = req.body;
+  const { idCliente } = req.query;
+  sequelize.query('SET FOREIGN_KEY_CHECKS=0');
+  sequelize.query('INSERT INTO usuariosPedidos (idCliente, idPlato, idPago, idEstado, idPedido, fechaModificacion) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+    { replacements: [idCliente, idPlato, idPago, 1, null] })
+    .then(response => {
+      res.status(201).json({ "mensaje": "La validadción del cliente y los comapos fue exitosa. El pedido fue creado", response })
+    })
+});
 
 module.exports = { router, firmaSegura };

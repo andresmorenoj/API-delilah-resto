@@ -284,6 +284,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idCliente
+          description: Id del cliente
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el Token de validadición del cliente.
@@ -300,7 +306,7 @@ paths:
               $ref: "#/components/schemas/Pedido"
 
       responses:
-        200:
+        201:
           description: El token corresponde al cliente y todos los campos requeridos fueron enviados correctamente.
           content:
             application/json:
