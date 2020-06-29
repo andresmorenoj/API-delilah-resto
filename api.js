@@ -1,5 +1,6 @@
 const express = require('express');
 const { router } = require('./util/routes/rutasCliente');
+const { routerAdmin } = require('./util/routes/rutasAdministrador');
 const bodyParser = require('body-parser');
 
 const api = express();
@@ -15,7 +16,11 @@ const validarLogin = require('./util/middlewares/cliente/validarLogin');
 const validarPlatos = require('./util/middlewares/cliente/validarPlatos');
 const autenticacionToken = require('./util/middlewares/cliente/autenticacionToken')
 const validarInformacion = require('./util/middlewares/cliente/validarInformacion')
-const validarAdmin = require('./util/middlewares/cliente/validarAdmin')
+const validarAdmin = require('./util/middlewares/cliente/validarAdmin');
+
+// MIDDLEWARES ADMINISTRADOR
+const esAdmin = require('./util/middlewares/administrador/esAdmin');
+const validarCrearPlato = require('./util/middlewares/administrador/validarCrearPlato');
 
 // ENDPOINTS CLIENTE
 
@@ -48,3 +53,8 @@ api.delete('/:usuario/eliminar/plato', validarAdmin, router);
 
 // Eliminar pedido
 api.delete('/:usuario/eliminar/pedido', validarAdmin, router);
+
+// ENDPOINTS ADMINSTRADOR
+
+// Crear plato
+api.post('/:administrador/crear/plato', esAdmin, validarCrearPlato, routerAdmin);
