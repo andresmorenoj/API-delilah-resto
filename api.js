@@ -22,7 +22,7 @@ const validarAdmin = require('./util/middlewares/cliente/validarAdmin')
 // Registrar a un cliente
 api.post('/registro', peticionMalEviada, usuarioYaExiste, router);
 
-// Login cliente
+// Login cliente - Administrador
 api.post('/login', validarLogin, router);
 
 // Listar los platos - Cliente
