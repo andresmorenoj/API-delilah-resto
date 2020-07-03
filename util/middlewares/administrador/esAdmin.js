@@ -15,7 +15,7 @@ function esAdmin(req, res, next) {
         if (response[0].usuario === verificarToken.usuario && response[0].idUsuario === parseInt(idUsuario) && response[0].administrador === 1) {
           return next();
         } else {
-          return res.status(401).json({ 'mensaje': 'No fue posible crear el plato ya que no se pudo autenticar al usuario como administador.' })
+          return res.status(401).json({ 'mensaje': 'No se pudo autenticar al usuario como administador.' })
         }
       })
   } catch (error) {

@@ -26,8 +26,18 @@ routerAdmin.post('/:administrador/crear/plato', (req, res) => {
       "precio": precio
     }
   })
-})
+});
 
+// Listar platos por ID
+
+routerAdmin.get('/:administrador/platos', (req, res) => {
+  const { idPlato } = req.query;
+  sequelize.query('SELECT * FROM plato WHERE idPlato = ?',
+    { replacements: [idPlato], type: sequelize.QueryTypes.SELECT })
+    .then(response => {
+      res.json({ "mensaje": "Validación del administrador realizada con éxito.", response })
+    })
+});
 
 
 

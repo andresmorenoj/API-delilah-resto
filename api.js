@@ -1,6 +1,7 @@
 const express = require('express');
 const { router } = require('./util/routes/rutasCliente');
 const { routerAdmin } = require('./util/routes/rutasAdministrador');
+const { globalRouter } = require('./util/routes/rutasGlobales');
 const bodyParser = require('body-parser');
 
 const api = express();
@@ -21,17 +22,20 @@ const validarAdmin = require('./util/middlewares/cliente/validarAdmin');
 // MIDDLEWARES ADMINISTRADOR
 const esAdmin = require('./util/middlewares/administrador/esAdmin');
 const validarCrearPlato = require('./util/middlewares/administrador/validarCrearPlato');
+const platoExiste = require('./util/middlewares/administrador/platoExiste');
+
+//ENPOINTS GLOBALES
+
+// Login cliente - Administrador
+api.post('/login', validarLogin, globalRouter);
+
+// Listar los platos - Cliente - Administrador
+api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, globalRouter);
 
 // ENDPOINTS CLIENTE
 
 // Registrar a un cliente
 api.post('/registro', peticionMalEviada, usuarioYaExiste, router);
-
-// Login cliente - Administrador
-api.post('/login', validarLogin, router);
-
-// Listar los platos - Cliente
-api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router);
 
 // Ver información personal
 api.get('/:usuario/ver/informacion', autenticacionToken, validarInformacion, router);
@@ -58,3 +62,6 @@ api.delete('/:usuario/eliminar/pedido', validarAdmin, router);
 
 // Crear plato
 api.post('/:administrador/crear/plato', esAdmin, validarCrearPlato, routerAdmin);
+
+// Listar platos por ID
+api.get('/:administrador/platos', esAdmin, platoExiste, routerAdmin)

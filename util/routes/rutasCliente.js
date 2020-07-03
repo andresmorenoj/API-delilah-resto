@@ -18,19 +18,6 @@ router.post('/registro', (req, res) => {
   res.status(201).json('usuario creado')
 });
 
-// Login
-router.post('/login', (req, res) => {
-  const { usuario } = req.body;
-  const token = jwt.sign({ usuario }, firmaSegura);
-  res.json({ 'mensaje': 'El login del usuaio fue correcto y se generó el Token.', token });
-})
-
-// Listar los platos
-router.get('/:usuario/platos/todos', (req, res) => {
-  sequelize.query('SELECT * FROM plato', { type: sequelize.QueryTypes.SELECT })
-    .then(response => res.json(response));
-})
-
 // Ver información personal
 router.get('/:usuario/ver/informacion/', (req, res) => {
   const { idUsuario } = req.query
