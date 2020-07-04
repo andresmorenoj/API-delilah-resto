@@ -6,7 +6,10 @@ const bodyParser = require('body-parser');
 
 const api = express();
 const PORT = process.env.NODE_ENV;
-api.use(bodyParser());
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 api.listen(PORT, () => console.log(`Servidor iniciado en el puerto --> ${PORT}`));
 
