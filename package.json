@@ -1,6 +1,9 @@
 {
   "name": "api-delilah-resto",
   "version": "1.0.0",
+  "engines": {
+    "node": "12.14.1"
+  },
   "description": "API RESTFULL para el proyecto final de Acámica. API Delilah Restó permite crear usuarios para hacer pedidos al resaturante, de igual forma permite que un usuario administrador pueda ejecutar el CRUD completo de la API.",
   "main": "api.js",
   "scripts": {
