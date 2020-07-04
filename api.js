@@ -1,5 +1,7 @@
 const express = require('express');
 const { router } = require('./util/routes/rutasCliente');
+const { routerAdmin } = require('./util/routes/rutasAdministrador');
+const { globalRouter } = require('./util/routes/rutasGlobales');
 const bodyParser = require('body-parser');
 
 const api = express();
@@ -15,18 +17,28 @@ const validarLogin = require('./util/middlewares/cliente/validarLogin');
 const validarPlatos = require('./util/middlewares/cliente/validarPlatos');
 const autenticacionToken = require('./util/middlewares/cliente/autenticacionToken')
 const validarInformacion = require('./util/middlewares/cliente/validarInformacion')
-const validarAdmin = require('./util/middlewares/cliente/validarAdmin')
+const validarAdmin = require('./util/middlewares/cliente/validarAdmin');
+
+// MIDDLEWARES ADMINISTRADOR
+const esAdmin = require('./util/middlewares/administrador/esAdmin');
+const validarCrearPlato = require('./util/middlewares/administrador/validarCrearPlato');
+const platoExiste = require('./util/middlewares/administrador/platoExiste');
+const hayPedidos = require('./util/middlewares/administrador/hayPedidos');
+const pedidoExiste = require('./util/middlewares/administrador/pedidoExiste');
+const estadoPedido = require('./util/middlewares/administrador/estadoPedido');
+
+//ENPOINTS GLOBALES
+
+// Login cliente - Administrador
+api.post('/login', validarLogin, globalRouter);
+
+// Listar los platos - Cliente - Administrador
+api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, globalRouter);
 
 // ENDPOINTS CLIENTE
 
 // Registrar a un cliente
 api.post('/registro', peticionMalEviada, usuarioYaExiste, router);
-
-// Login cliente
-api.post('/login', validarLogin, router);
-
-// Listar los platos - Cliente
-api.get('/:usuario/platos/todos', autenticacionToken, validarPlatos, router);
 
 // Ver información personal
 api.get('/:usuario/ver/informacion', autenticacionToken, validarInformacion, router);
@@ -48,3 +60,29 @@ api.delete('/:usuario/eliminar/plato', validarAdmin, router);
 
 // Eliminar pedido
 api.delete('/:usuario/eliminar/pedido', validarAdmin, router);
+
+// ENDPOINTS ADMINSTRADOR
+
+// Crear plato
+api.post('/:administrador/crear/plato', esAdmin, validarCrearPlato, routerAdmin);
+
+// Listar platos por ID
+api.get('/:administrador/platos', esAdmin, platoExiste, routerAdmin);
+
+// Listar pedidos
+api.get('/:administrador/pedidos/todos', esAdmin, hayPedidos, routerAdmin);
+
+// Listar pedido por ID
+api.get('/:administrador/pedidos', esAdmin, pedidoExiste, routerAdmin);
+
+// Editar pedido
+api.put('/:administrador/actualizar/pedido', esAdmin, pedidoExiste, estadoPedido, routerAdmin);
+
+// Editar plato
+api.put('/:administrador/actualizar/plato', esAdmin, platoExiste, routerAdmin);
+
+// Eliminar plato
+api.delete('/:administrador/borrar/plato', esAdmin, platoExiste, routerAdmin);
+
+// Eliminar pedido
+api.delete('/:administrador/borrar/pedido', esAdmin, pedidoExiste, routerAdmin);

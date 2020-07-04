@@ -13,38 +13,25 @@ router.use(bodyParser());
 // Registrar
 router.post('/registro', (req, res) => {
   const { administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
-  sequelize.query('INSERT INTO cliente (idCliente, administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+  sequelize.query('INSERT INTO usuario (idUsuario, administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     { replacements: [null, administrador, usuario, nombreApellido, correo, telefono, direccion, contrasenia] })
   res.status(201).json('usuario creado')
 });
 
-// Login
-router.post('/login', (req, res) => {
-  const { usuario } = req.body;
-  const token = jwt.sign({ usuario }, firmaSegura);
-  res.json({ 'mensaje': 'El login del usuaio fue correcto y se generó el Token.', token });
-})
-
-// Listar los platos
-router.get('/:usuario/platos/todos', (req, res) => {
-  sequelize.query('SELECT * FROM plato', { type: sequelize.QueryTypes.SELECT })
-    .then(response => res.json(response));
-})
-
 // Ver información personal
 router.get('/:usuario/ver/informacion/', (req, res) => {
-  const { idCliente } = req.query
-  sequelize.query('SELECT * FROM cliente WHERE idCliente = ?', { replacements: [idCliente], type: sequelize.QueryTypes.SELECT })
+  const { idUsuario } = req.query
+  sequelize.query('SELECT * FROM usuario WHERE idUsuario = ?', { replacements: [idUsuario], type: sequelize.QueryTypes.SELECT })
     .then(response => res.json(response))
 });
 
 // Realizar pedido
 router.post('/:usuario/pedido', (req, res) => {
   const { idPlato, idPago } = req.body;
-  const { idCliente } = req.query;
+  const { idUsuario } = req.query;
   sequelize.query('SET FOREIGN_KEY_CHECKS=0');
-  sequelize.query('INSERT INTO usuariosPedidos (idCliente, idPlato, idPago, idEstado, idPedido, fechaModificacion) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
-    { replacements: [idCliente, idPlato, idPago, 1, null] })
+  sequelize.query('INSERT INTO usuariosPedidos (idUsuario, idPlato, idPago, idEstado, idPedido, fechaModificacion) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP)',
+    { replacements: [idUsuario, idPlato, idPago, 1, null] })
     .then(response => {
       res.status(201).json({ "mensaje": "La validadción del cliente y los comapos fue exitosa. El pedido fue creado", response })
     })
@@ -53,9 +40,9 @@ router.post('/:usuario/pedido', (req, res) => {
 // Editar información personal
 router.put('/:usuario/editar/informacion', (req, res) => {
   const { usuario, nombreApellido, correo, telefono, direccion, contrasenia } = req.body;
-  const { idCliente } = req.query;
-  sequelize.query('UPDATE cliente SET usuario = ?, nombreApellido = ?, correo = ?, telefono = ?, direccion = ?, contrasenia = ? WHERE idCliente = ?',
-    { replacements: [usuario, nombreApellido, correo, telefono, direccion, contrasenia, idCliente] })
+  const { idUsuario } = req.query;
+  sequelize.query('UPDATE usuario SET usuario = ?, nombreApellido = ?, correo = ?, telefono = ?, direccion = ?, contrasenia = ? WHERE idUsuario = ?',
+    { replacements: [usuario, nombreApellido, correo, telefono, direccion, contrasenia, idUsuario] })
     .then(response => {
       res.status(201).json({ "mensaje": "La información se actualizó con éxito." })
     })

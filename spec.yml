@@ -727,7 +727,7 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar todos los platos ya que no se pudo autenticar al usuario como administador."
 
-  /{Administrador}/platos/{idPlato}:
+  /{Administrador}/platos:
     get:
       tags:
         - "Administrador"
@@ -739,7 +739,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: ID del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPlato
           description: ID del plato
           required: true
@@ -805,6 +811,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idAdministrador
+          description: ID del administrador
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
@@ -851,7 +863,7 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible listar todos los pedidos ya que no se pudo autenticar al usuario como administador."
 
-  /{Administrador}/pedidos/{idPedido}:
+  /{Administrador}/pedidos:
     get:
       tags:
         - "Administrador"
@@ -863,7 +875,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: ID del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPedido
           description: ID del pedido
           required: true
@@ -1001,6 +1019,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
@@ -1065,7 +1089,7 @@ paths:
                   plato:
                     $ref: "#/components/schemas/Plato"
 
-  /{Administrador}/actualizar/pedido/{idPedido}:
+  /{Administrador}/actualizar/pedido:
     put:
       tags:
         - "Administrador"
@@ -1077,13 +1101,19 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPedido
           description: Se debe enviar el id del pedido que se va a actualizar
           required: true
           schema:
             type: integer
-        - in: header
+       - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
           required: true
@@ -1164,7 +1194,7 @@ paths:
                     default: No hay pedido.
                     example: El pedido con el ID especificado no existe.
 
-  /{Administrador}/editar/plato/{idPlato}:
+  /{Administrador}/editar/plato:
     put:
       tags:
         - "Administrador"
@@ -1176,7 +1206,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPlato
           description: Se debe enviar el id del plato que se va a actualizar
           required: true
@@ -1252,7 +1288,7 @@ paths:
                     default: No hay plato.
                     example: El plato con el ID especificado no existe.
 
-  /{Administrador}/eliminar/plato/{idPlato}:
+  /{Administrador}/eliminar/plato:
     delete:
       tags:
         - "Administrador"
@@ -1264,7 +1300,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPlato
           description: Id del plato
           required: true
@@ -1319,7 +1361,7 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible eliminar el plato ya que no se pudo autenticar al usuario como administador."
 
-  /{Administrador}/eliminar/pedido/{idPedido}:
+  /{Administrador}/eliminar/pedido:
     delete:
       tags:
         - "Administrador"
@@ -1331,7 +1373,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPedido
           description: Id del pedido
           required: true
