@@ -11,7 +11,7 @@ api.use(bodyParser.urlencoded({
   extended: true
 }));
 
-api.listen(process.env.PORT || 3000, () => console.log(`Servidor iniciado en el puerto --> ${PORT}`));
+api.listen(process.env.PORT || 3000, () => console.log(`Servidor iniciado.`));
 
 // MIDDLEWARES CLIENTE
 const peticionMalEviada = require('./util/middlewares/cliente/peticionMalEnviada');
