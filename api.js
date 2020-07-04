@@ -83,3 +83,6 @@ api.put('/:administrador/actualizar/plato', esAdmin, platoExiste, routerAdmin);
 
 // Eliminar plato
 api.delete('/:administrador/borrar/plato', esAdmin, platoExiste, routerAdmin);
+
+// Eliminar pedido
+api.delete('/:administrador/borrar/pedido', esAdmin, pedidoExiste, routerAdmin);

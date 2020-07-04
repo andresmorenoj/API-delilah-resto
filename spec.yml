@@ -1361,7 +1361,7 @@ paths:
                     default: Autenticacion fallida - El usuario no corresponde a un administrador.
                     example: "No fue posible eliminar el plato ya que no se pudo autenticar al usuario como administador."
 
-  /{Administrador}/eliminar/pedido/{idPedido}:
+  /{Administrador}/eliminar/pedido:
     delete:
       tags:
         - "Administrador"
@@ -1373,7 +1373,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPedido
           description: Id del pedido
           required: true

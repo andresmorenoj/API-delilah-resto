@@ -83,6 +83,13 @@ routerAdmin.delete('/:administrador/borrar/plato', (req, res) => {
   const { idPlato } = req.query;
   sequelize.query('DELETE FROM plato WHERE idPlato = ?', { replacements: [idPlato] })
   res.json({ "mensaje": "Se autenticó el token y se eliminó el plato con éxito." })
-})
+});
+
+// Eliminar pedido
+routerAdmin.delete('/:administrador/borrar/pedido', (req, res) => {
+  const { idPedido } = req.query;
+  sequelize.query('DELETE FROM usuariosPedidos WHERE idPedido = ?', { replacements: [idPedido] })
+  res.json({ "mensaje": "Se autenticó el token y se eliminó el pedido con éxito." })
+});
 
 module.exports = { routerAdmin, firmaSegura };
