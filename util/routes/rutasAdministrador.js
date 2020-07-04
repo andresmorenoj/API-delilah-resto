@@ -46,7 +46,15 @@ routerAdmin.get('/:administrador/pedidos/todos', (req, res) => {
     })
 });
 
-
+// Listar pedidos por ID
+routerAdmin.get('/:administrador/pedidos', (req, res) => {
+  const { idPedido } = req.query;
+  sequelize.query('SELECT * FROM usuariosPedidos WHERE idPedido = ?',
+    { replacements: [idPedido], type: sequelize.QueryTypes.SELECT })
+    .then(response => {
+      res.json({ "mensaje": "Validación del administrador realizada con éxito.", response })
+    })
+});
 
 
 module.exports = { routerAdmin, firmaSegura };

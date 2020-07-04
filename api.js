@@ -24,6 +24,7 @@ const esAdmin = require('./util/middlewares/administrador/esAdmin');
 const validarCrearPlato = require('./util/middlewares/administrador/validarCrearPlato');
 const platoExiste = require('./util/middlewares/administrador/platoExiste');
 const hayPedidos = require('./util/middlewares/administrador/hayPedidos');
+const pedidoExiste = require('./util/middlewares/administrador/pedidoExiste');
 
 //ENPOINTS GLOBALES
 
@@ -69,3 +70,6 @@ api.get('/:administrador/platos', esAdmin, platoExiste, routerAdmin);
 
 // Listar pedidos
 api.get('/:administrador/pedidos/todos', esAdmin, hayPedidos, routerAdmin);
+
+// Listar pedido por ID
+api.get('/:administrador/pedidos', esAdmin, pedidoExiste, routerAdmin);
