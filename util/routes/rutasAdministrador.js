@@ -65,7 +65,17 @@ routerAdmin.put('/:administrador/actualizar/pedido', (req, res) => {
   res.json({
     "mensaje": "El token corresponde al administrador. El pedido existe y se encuentra en un estado diferente de *entregado* o *eliminado*"
   })
-})
+});
 
+// Editar plato
+routerAdmin.put('/:administrador/actualizar/plato', (req, res) => {
+  const { nombreLargo, nombreCorto, foto, precio } = req.body;
+  const { idPlato } = req.query;
+  sequelize.query('UPDATE plato SET nombreLargo = ?, nombreCorto = ?, foto = ?, precio = ? WHERE idPlato = ?',
+    { replacements: [nombreLargo, nombreCorto, foto, precio, idPlato] })
+  res.json({
+    "mensaje": "El token corresponde al administrador. El plato existe se ha editado"
+  })
+});
 
 module.exports = { routerAdmin, firmaSegura };

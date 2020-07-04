@@ -76,4 +76,7 @@ api.get('/:administrador/pedidos/todos', esAdmin, hayPedidos, routerAdmin);
 api.get('/:administrador/pedidos', esAdmin, pedidoExiste, routerAdmin);
 
 // Editar pedido
-api.put('/:administrador/actualizar/pedido', esAdmin, pedidoExiste, estadoPedido, routerAdmin)
+api.put('/:administrador/actualizar/pedido', esAdmin, pedidoExiste, estadoPedido, routerAdmin);
+
+// Editar plato
+api.put('/:administrador/actualizar/plato', esAdmin, platoExiste, routerAdmin)

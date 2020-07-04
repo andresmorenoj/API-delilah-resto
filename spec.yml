@@ -1194,7 +1194,7 @@ paths:
                     default: No hay pedido.
                     example: El pedido con el ID especificado no existe.
 
-  /{Administrador}/editar/plato/{idPlato}:
+  /{Administrador}/editar/plato:
     put:
       tags:
         - "Administrador"
@@ -1206,7 +1206,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPlato
           description: Se debe enviar el id del plato que se va a actualizar
           required: true
