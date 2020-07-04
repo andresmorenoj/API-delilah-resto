@@ -1288,7 +1288,7 @@ paths:
                     default: No hay plato.
                     example: El plato con el ID especificado no existe.
 
-  /{Administrador}/eliminar/plato/{idPlato}:
+  /{Administrador}/eliminar/plato:
     delete:
       tags:
         - "Administrador"
@@ -1300,7 +1300,13 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPlato
           description: Id del plato
           required: true

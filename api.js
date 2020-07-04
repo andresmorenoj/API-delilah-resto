@@ -79,4 +79,7 @@ api.get('/:administrador/pedidos', esAdmin, pedidoExiste, routerAdmin);
 api.put('/:administrador/actualizar/pedido', esAdmin, pedidoExiste, estadoPedido, routerAdmin);
 
 // Editar plato
-api.put('/:administrador/actualizar/plato', esAdmin, platoExiste, routerAdmin)
+api.put('/:administrador/actualizar/plato', esAdmin, platoExiste, routerAdmin);
+
+// Eliminar plato
+api.delete('/:administrador/borrar/plato', esAdmin, platoExiste, routerAdmin);

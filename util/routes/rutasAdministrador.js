@@ -78,4 +78,11 @@ routerAdmin.put('/:administrador/actualizar/plato', (req, res) => {
   })
 });
 
+// Eliminar plato
+routerAdmin.delete('/:administrador/borrar/plato', (req, res) => {
+  const { idPlato } = req.query;
+  sequelize.query('DELETE FROM plato WHERE idPlato = ?', { replacements: [idPlato] })
+  res.json({ "mensaje": "Se autenticó el token y se eliminó el plato con éxito." })
+})
+
 module.exports = { routerAdmin, firmaSegura };
