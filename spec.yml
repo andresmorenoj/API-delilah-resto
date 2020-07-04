@@ -811,6 +811,12 @@ paths:
           required: true
           schema:
             type: string
+        - in: query
+          name: idAdministrador
+          description: ID del administrador
+          required: true
+          schema:
+            type: integer
         - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
