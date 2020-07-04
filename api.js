@@ -5,13 +5,13 @@ const { globalRouter } = require('./util/routes/rutasGlobales');
 const bodyParser = require('body-parser');
 
 const api = express();
-//const PORT = process.env.NODE_ENV;
+const PUERTO = process.env.PORT || 3000;
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({
   extended: true
 }));
 
-api.listen(process.env.PORT || 3000, () => console.log(`Servidor iniciado.`));
+api.listen(PUERTO, () => console.log(`Servidor iniciado. ${PUERTO}`));
 
 // MIDDLEWARES CLIENTE
 const peticionMalEviada = require('./util/middlewares/cliente/peticionMalEnviada');
