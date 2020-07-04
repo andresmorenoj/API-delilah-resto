@@ -5,7 +5,7 @@ const { globalRouter } = require('./util/routes/rutasGlobales');
 const bodyParser = require('body-parser');
 
 const api = express();
-const PORT = process.env.PORT;
+const PORT = process.env.NODE_ENV;
 api.use(bodyParser());
 
 api.listen(PORT, () => console.log(`Servidor iniciado en el puerto --> ${PORT}`));
