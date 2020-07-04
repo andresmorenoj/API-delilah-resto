@@ -1089,7 +1089,7 @@ paths:
                   plato:
                     $ref: "#/components/schemas/Plato"
 
-  /{Administrador}/actualizar/pedido/{idPedido}:
+  /{Administrador}/actualizar/pedido:
     put:
       tags:
         - "Administrador"
@@ -1101,13 +1101,19 @@ paths:
           required: true
           schema:
             type: string
-        - in: path
+        - in: query
+          name: idAdministrador
+          description: Id del administrador
+          required: true
+          schema:
+            type: integer
+        - in: query
           name: idPedido
           description: Se debe enviar el id del pedido que se va a actualizar
           required: true
           schema:
             type: integer
-        - in: header
+       - in: header
           name: Token
           description: Se debe enviar el token de validación del administrador
           required: true

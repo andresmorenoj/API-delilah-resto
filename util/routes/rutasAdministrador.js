@@ -56,5 +56,16 @@ routerAdmin.get('/:administrador/pedidos', (req, res) => {
     })
 });
 
+// Editar pedido
+routerAdmin.put('/:administrador/actualizar/pedido', (req, res) => {
+  const { idUsuario, idPlato, idPago, idEstado } = req.body;
+  const { idPedido } = req.query;
+  sequelize.query('UPDATE usuariosPedidos SET idUsuario = ?, idPlato = ?, idPago = ?, idEstado = ?, fechaModificacion = CURRENT_TIMESTAMP WHERE idPedido = ?',
+    { replacements: [idUsuario, idPlato, idPago, idEstado, idPedido] })
+  res.json({
+    "mensaje": "El token corresponde al administrador. El pedido existe y se encuentra en un estado diferente de *entregado* o *eliminado*"
+  })
+})
+
 
 module.exports = { routerAdmin, firmaSegura };
