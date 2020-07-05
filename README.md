@@ -75,7 +75,7 @@ Ahora que nuestro servidor de **Node.js** esta corriendo y la base de datos esta
 
 Para ello, dirigete al siguiente enlace donde encontrarás la documentación sobre cómo hacer las peticiones tanto para un cliente como para el administrador.
 
-Link de la documentación en **Swagger** --> [Documentación oficial de la API](http://https://app.swaggerhub.com/apis-docs/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0#/ "Documentación oficial de la API")
+Link de la documentación en **Swagger** --> [Documentación oficial de la API](https://app.swaggerhub.com/apis-docs/andresmorenoj/API_Delilah-Resto_Andres-Moreno/1.0.0 "Documentación oficial de la API")
 
 ---
 
