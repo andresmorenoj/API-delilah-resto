@@ -54,7 +54,7 @@ Para instalar las dependencias solo debes ejecutar desde tu terminal o consola e
 
 2. Inicializar los servicios de Apache y MySQL
 3. Una vez iniciados los servicios, podemos ingresar a la página de** phpMyAdmin** donde importaremos nuestra base de datos.
-4. En **phpMyAdmin **crea una nueva base de datos con el nombre de tu preferencia.
+4. En **phpMyAdmin** crea una nueva base de datos con el nombre de tu preferencia.
 5. A continuación vas a seleccionar la opción de **importar** en **phpMyAdmin** y vas a buscar el archivo **dbDelilahResto.sql** localizado en el directorio **base_de_datos**. Este directorio se debió haber descargado cuando se clonó el proyecto, por lo cual debe estar en la carpeta raíz de tu proyecto.
 6. Una vez importada la base de datos, procedemos a configurar nuestro servidor.
    1. En los directorios del proyecto** (routes y middlewares)** hay varios archivos de JavaScript que corresponden a las rutas y middlewares utilizados para realizar las peticiones a la API. Dentro de cada uno de esos archivos de JavaScript vas a identificar la línea de código que sea igual a esta: **`const sequelize = new Sequelize('mysql://root:root@127.0.0.1:8889/Delilah_Resto')`** Por lo general esa línea de código siempre va a estar en las primeras líneas de cada archivo.
