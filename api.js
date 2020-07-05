@@ -11,15 +11,17 @@ api.use(bodyParser.urlencoded({
   extended: true
 }));
 
-api.listen(PUERTO, () => console.log(`Servidor iniciado. ${PUERTO}`));
+api.listen(PUERTO, () => console.log(`Servidor iniciado en le puero ----> ${PUERTO}`));
+
+// MIDDLEWARES GLOBALES
+const validarLogin = require('./util/middlewares/globales/validarLogin');
+const validarPlatos = require('./util/middlewares/globales/validarPlatos');
+const autenticacionToken = require('./util/middlewares/globales/autenticacionToken');
 
 // MIDDLEWARES CLIENTE
 const peticionMalEviada = require('./util/middlewares/cliente/peticionMalEnviada');
 const usuarioYaExiste = require('./util/middlewares/cliente/usuarioExiste');
-const validarLogin = require('./util/middlewares/cliente/validarLogin');
-const validarPlatos = require('./util/middlewares/cliente/validarPlatos');
-const autenticacionToken = require('./util/middlewares/cliente/autenticacionToken')
-const validarInformacion = require('./util/middlewares/cliente/validarInformacion')
+const validarInformacion = require('./util/middlewares/cliente/validarInformacion');
 const validarAdmin = require('./util/middlewares/cliente/validarAdmin');
 
 // MIDDLEWARES ADMINISTRADOR
