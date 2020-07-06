@@ -24,7 +24,7 @@
 
 ### 1 - Clonar o descargar el proyecto:
 
-Clonar el repositorio desde el siguiente link. --> **http://https://github.com/andresmorenoj/API-delilah-resto "Link del repositorio**
+Clonar el repositorio desde el siguiente link. --> **http://https://github.com/andresmorenoj/API-delilah-resto**
 
 ### En tu consola o terminal ejecutar:
 
